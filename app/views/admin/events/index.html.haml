@@ -1,0 +1,58 @@
+.container.admin
+  = render 'shared/navigation_admin'
+  .row
+    .col-lg-10
+      .chart
+        %h3.module_header
+          Eventos
+          %span.count
+            #{@events.count}
+          %span{style: "float:right;"}=# link_to 'Export to CSV', to_csv_admin_event_path(0)
+    .col-lg-2
+      %a.my_button{href: new_admin_event_path, style: 'margin-top: 30px;'}
+        Nuevo Evento        
+    .col-lg-12
+      .well
+        .row
+          .col-lg-5
+          .col-lg-2
+            Busqueda:
+            %br
+          .col-lg-5
+        .row
+        .row
+          = form_tag events_filter_path, method: 'get', remote: true do
+            .col-sm-2
+              .input-group.input-group-sm
+                Fecha Inicial
+                = text_field_tag :start_date, "", class: 'form-control datepicker date', placeholder:'Inicial'
+            .col-sm-2
+              .input-group.input-group-sm
+                Fecha Final
+                = text_field_tag :end_date, "", class: 'form-control datepicker date', placeholder:'Final'
+            .col-sm-3
+              %label.pull-left 
+              Brigada
+              %br
+              = select_tag :event_type_id, options_from_collection_for_select(EventType.all, :id, :name), {include_blank: true}
+            .col-sm-1.pull-left
+              %button.btn.btn-succes{type: "submit", value: "Search",style:"margin-top:15px"}
+                %i.glyphicon.glyphicon-search
+            .col-md-1
+            .col-md-1
+        %br
+        .report-content
+          = render 'events' 
+
+- content_for :js_footer do
+  :javascript
+    $(function() {
+      $('input.datepicker').datepicker({
+        dateFormat: "yy-mm-dd",
+        changeMonth: true,
+        changeYear: true,
+        minDate: "-12M",
+        maxDate: "+6M"
+      });
+    });
+

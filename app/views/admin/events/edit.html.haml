@@ -1,0 +1,199 @@
+.container.admin
+  = render 'shared/navigation_admin'
+  .row.adform
+    = form_for @event, url: (@event.new_record? ? admin_events_path : admin_event_path(@event.id)), method: (@event.new_record? ? 'post' : 'put'), html: {id: 'eventForm'} do |f|
+      .chart
+        %h3.module_header
+          #{(@event.new_record? ? 'Nuevo evento' : "Editar evento")}
+      
+      .col-lg-6
+        .temp_list
+          %ul
+            %li
+              - unless @event.errors.empty?
+                .alert.alert-danger.errors
+                  = @event.errors.full_messages.join(', ')
+            %li
+              .row
+                .col-lg-3
+                  %span Tipo de Evento *
+                .col-lg-9
+                  = f.select :event_type_id, options_from_collection_for_select(EventType.all, :id, :name, @event.event_type_id)
+            %li
+              .row
+                .col-lg-3
+                  %span Ciudad *
+                .col-lg-9
+                  = f.select :city_id, options_from_collection_for_select(City.all, :id, :name, @event.city_id)
+            %li
+              .row
+                .col-lg-3
+                  %span Área *
+                .col-lg-9
+                  = f.select :area_id, options_from_collection_for_select(Area.all, :id, :name, @event.area_id)
+            %li
+              .row
+                .col-lg-3
+                  %span Nombre *
+                .col-lg-9
+                  = f.text_field :name, size: '150', maxlenght: '150'
+            %li
+              .row
+                .col-lg-3
+                  %span Lugar *
+                .col-lg-9
+                  = f.text_field :place, size: '250', maxlenght: '250'
+
+            %li
+              .row
+                .col-lg-3
+                  %span
+                    Fecha de
+                    %br/
+                    activación *
+                .col-lg-9
+                  = f.text_field :activation_date, size: '5', maxlenght: '5', value: (@event.activation_date.nil? ? '' : (@event.activation_date || @event.created_at).strftime("%d/%m/%Y")), class: 'datepicker date', style: 'padding: 15px;'
+            %li
+              .row
+                .col-lg-3
+                  %span
+                    Fecha de
+                    %br/
+                    evento *
+                .col-lg-9
+                  .row
+                    .col-md-12
+                      = f.text_field :event_date, size: '5', maxlenght: '5', value: (@event.event_date.nil? ? '' : @event.event_date.strftime("%d/%m/%Y")), class: 'datepicker date', style: 'padding: 15px;'
+                    .col-md-3
+                      .pull-right
+                        Hora inicio:
+                    .col-md-9
+                      = select_tag :event_date_hour, options_for_select((6..20), (@event.new_record? ? '' : @event.event_date.hour)), style: 'width: 65px;'
+                      \-
+                      = select_tag :event_date_minute, options_for_select((0..45).step(15), (@event.new_record? ? '' : @event.event_date.min)), style: 'width: 65px;'
+                    .col-md-3
+                      .pull-right
+                        Hora fin:
+                    .col-md-9
+                      = select_tag :event_end_time_hour, options_for_select((6..24), (@event.new_record? ? '' : @event.end_time.hour)), style: 'width: 65px;'
+                      \-
+                      = select_tag :event_end_time_minute, options_for_select((0..45).step(15), (@event.new_record? ? '' : @event.end_time.min)), style: 'width: 65px;'
+
+            %li
+              .row
+                .col-lg-3
+                  %span Rol *
+                .col-lg-9
+                  = f.text_field :role, size: '250', maxlenght: '250'
+
+            %li
+              .row
+                .col-lg-3
+                  %span Espacios disponibles *
+                .col-lg-9
+                  = f.select :spaces, options_for_select((0..50), @event.spaces), {}, {style: "#{('display: none;' if @event.new_record? || !@event.event_type.has_limit)}"}
+                  %span#unlimited_text{style: ('display: none;' if !@event.new_record? && @event.event_type.has_limit)} Ilimitado
+
+            %li
+              .row
+                .col-lg-3
+                  %span Brigada
+                .col-lg-9
+                  = f.select :brigade_id, options_from_collection_for_select(Brigade.all, :id, :name, @event.brigade_id), include_blank: true
+
+            %li
+              .row
+                .col-lg-3
+                  %span Responsable *
+                .col-lg-9
+                  = f.hidden_field :responsable_id
+                  = text_field_tag :responsable_name, @event.responsable_name, size: '150', maxlenght: '150'
+
+      .col-lg-6
+        .chart
+          .temp_list
+            %ul
+              %li
+                .row
+                  .col-lg-3
+                    %span Descripci&oacute;n:
+                  .col-lg-9
+                    = f.text_area :description, size: '10x5', style: 'width: 100%;', maxlength: '255'
+              
+              %li
+                .row
+                  .col-lg-12
+                    %span
+                      Requiere ser mayor de edad para participar:
+                      = f.check_box :requires_adult, style: 'margin-top: -3px;'
+              
+              %li
+                .row
+                  .col-lg-3
+                    %span Estado *
+                  .col-lg-9
+                    = f.select :state, options_for_select(Event::EVENT_STATES, @event.state)
+              
+              %li
+                %i{style: 'font-size: 12px;'} Los campos marcados con * son obligatorios
+                %hr/
+                .botones
+                  = link_to "Guardar", "#", onclick: "$('#eventForm').submit(); return false;", class: 'btn btn-inverse'
+                  = link_to "Cancelar", admin_events_path, class: 'btn'
+                  - unless @event.new_record?
+                    = link_to "Borrar", admin_event_path(@event.id), class: 'btn', confirm: "Esta seguro que desea borrar el evento:#{@event.name}?", method: 'delete'
+
+
+
+- content_for :js_footer do
+  :javascript
+    $.ajax({async:false});
+    $(function() {
+      var event_types = {#{EventType.all.collect{|e| "#{e.id}: #{e.has_limit}"}.join(',')}};
+      $(".datepicker").datepicker({
+        dateFormat: "yy-mm-dd",
+        changeMonth: true,
+        changeYear: true,
+        minDate: "-12M",
+        maxDate: "+6M"
+      });
+
+      $('#event_event_type_id').on('change', function() {
+        if(event_types[$(this).val()]) {
+          $('#event_spaces').show();
+          $('#unlimited_text').hide();
+        } else {
+          $('#event_spaces').hide();
+          $('#unlimited_text').show();
+        }
+      });
+
+      $('#responsable_name')
+        .bind( "keydown", function(event) {
+          //alert(event.keyCode);
+          if(event.keyCode === $.ui.keyCode.ENTER && $(this).data("ui-autocomplete").menu.active) {
+            event.preventDefault();
+          } else if (!(event.keyCode === $.ui.keyCode.TAB)){
+            $(this).css("border-color","#D82D2D");
+            $("#event_responsable_id").val("");
+          }
+        })
+        .autocomplete({
+          source: "#{admin_responsable_autocomplete_path}",
+          minLength: 1,
+          select: function( event, ui ) {
+            if(ui.item) {
+              $(this).css("border-color","#44db2f");
+              $("#event_responsable_id").val(ui.item.id);
+            } else {
+              return false;
+            }
+          }
+        })
+        .blur(function(){
+          if($(this).val() ===""){
+            $(this).css("border-color","#D82D2D");
+            $("#event_responsable_id").val("");
+          }
+        });
+    });

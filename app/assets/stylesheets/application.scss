@@ -1,0 +1,31 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require jquery-ui-1.10.2.custom
+ *= require_tree ./bootstrap3
+ *= require_tree ./theme_base
+*/
+
+/* para esconder los cambios de vista del calendario que se ven mal */
+.fc-header-right > * {display: none;}
+/*.calendar .fc-border-separate tr td .fc-day-content { padding: 0px !important;} */
+.calendar .fc-content .fc-event-container a { padding: 3px; border-top: 1px solid #B3B3B3; color: #242424; }
+.calendar .fc-content .fc-event-container a.blue {background-color: #FBFDCD;}
+.calendar .fc-content .fc-event-container a.green {background-color: #E4FBFF; }
+.calendar .fc-content .fc-event-container a.red {background-color: #F8E8E8; }
+.calendar .fc-content .fc-event-container a.yellow {background-color: #FFF9F9;}
+.calendar .fc-content .fc-event-container a.emprendimiento {background-color: #2EF65C;}
+.calendar .fc-content .fc-event-container a.deporte {background-color: #2EF6ED;}
+.calendar .fc-content .fc-event-container a.eventos {background-color: #ACFE93;}
+.calendar .fc-content .fc-event-container a.Colecta {background-color: #C8FDC8; }
+.calendar .fc-content .fc-event-container a.Inducción {background-color: #E7CDFF; }
+
+

@@ -1,0 +1,203 @@
+= render 'shared/header'
+
+.container.detalle_evento
+  .row
+    .col-lg-12
+      .page-header
+        = link_to "Atrás", :back
+        %h1 Editar Usuario: #{resource_name.to_s.humanize}
+  .row
+    .col-lg-8.col-md-8
+
+      = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :multipart => true }) do |f|
+        = devise_error_messages!
+        .row
+          .col-lg-12
+            .form-group
+              = f.label 'Nombre', for: "nombre"
+              %br/
+              = f.text_field :first_name, class: "form-control", placeholder: "Nombre", type: "text", id: "nombre", style: "width: 90%; height: 32px; padding: 5px;"
+              
+            .form-group
+              = f.label 'Apellido', for: "apellido"
+              %br/
+              = f.text_field :last_name, class: "form-control", placeholder: "Apellido", type: "text", id: "apellido", style: "width: 90%; height: 32px; padding: 5px;"
+        %br/
+        .row
+          .col-lg-12      
+            .form-group
+              = f.label 'Email', for: "email"
+              %br/
+              = f.text_field :email, class: "form-control", type: "text", id: "email", style: "width: 90%; height: 32px; padding: 5px;"
+
+            .form-group
+              = f.label 'Documento de identidad', for: "indentifier"
+              %br/
+              = f.text_field :indentifier, class: "form-control", type: "text", id: "indentifier", style: "width: 90%; height: 32px; padding: 5px;"
+              %br/
+            .form-group
+              = f.label 'Ciudad *', for: "city_id"
+              %br/
+              = f.select :city_id, options_from_collection_for_select(City.all, :id, :name, resource.city_id)
+
+        %br/
+        .row
+          .col-lg-12      
+            .form-group
+              = f.label 'Foto', for: "photo"
+              %br/
+              = f.file_field :photo, class: "form-control", type: "file", id: "photo", style: "width: 90%; height: 32px; padding: 5px;"
+
+        %br/
+        .row
+          .col-lg-12
+            .form-group
+              = f.label 'Teléfono casa', for: "phone"
+              %br/
+              = f.text_field :phone, class: "form-control", type: "text", id: "phone", style: "width: 90%; height: 32px; padding: 5px;"
+            %br/
+            %br/
+            .form-group
+              = f.label 'Celular', for: "mobile"
+              %br/
+              = f.text_field :mobile, class: "form-control", type: "text", id: "mobile", style: "width: 90%; height: 32px; padding: 5px;"
+        %br/
+        .row
+          .col-lg-12 
+            .form-group
+              = f.label 'Fecha de nacimiento:', for: "datepicker"
+              = f.text_field :birth_date, size: '10', maxlength: '10', placeholder: "Fecha de nacimiento", id: 'datepicker'
+
+        %br/
+        .row
+          .col-lg-12
+            .form-group
+              = f.label 'Motivación para ser voluntario', for: "motivation"
+              %br/
+              = f.text_area :motivation, class: "form-control", id: "motivation", style: "width: 90%; height: 64px; padding: 5px;"
+
+        %br/
+        .row
+          .col-lg-12 
+            %p
+              = f.label 'Deseo recibir el boletín de noticias'
+              = f.check_box :contact_me, style: 'margin-top: -5px;'
+            %br/
+            %p
+              = f.label '' do
+                ¿Ya recibió la
+                = link_to_function 'inducción', '', title: 'Inducción es una clase de preparación para que los voluntarios puedan participar de mejor manera en los eventos. Es requerida para poder participar en eventos.'
+                en alguna institución?
+              = f.check_box :has_institution_induction, style: 'margin-top: -5px;'
+        %br/
+        .row
+          .col-lg-12
+
+
+            .form-group
+              = f.label 'Contraseña actual', for: "password"
+              %i (Necesitamos su contraseña actual para confirmar sus cambios)
+              %br/
+              = f.password_field :current_password, id: 'cpassword', style: "width: 90%; height: 32px; padding: 5px;"
+
+        %br/
+        .row
+          .col-lg-12 
+            %p
+              %button.btn.btn-primary{:type => 'submit'}
+                Actualizar
+
+      
+    .col-lg-4.col-md-4
+
+      // OLD
+      %h2 Cambiar contraseña:
+      = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
+        = devise_error_messages!
+        %p
+          = f.label 'Contraseña'
+          %i (déje el campo en blanco si no desea cambiarla)
+          %br/
+          = f.password_field :password
+        %p
+          = f.label 'Confirmar contraseña'
+          %br/
+          = f.password_field :password_confirmation
+        %p
+          = f.label 'Contraseña actual'
+          %i (Necesitamos su contraseña actual para confirmar sus cambios)
+          %br/
+          = f.password_field :current_password
+        %p
+          %button.btn.btn-primary{:type => 'submit'}
+            Actualizar
+
+      %br/
+      = render :partial => "devise/shared/links"
+
+
+
+
+// OLD
+
+.container
+  /
+    .page-header
+      .row
+        .col-lg-12
+          %h1 Edit #{resource_name.to_s.humanize}
+    .row
+      .col-lg-12
+        
+        = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :multipart => true }) do |f|
+          = devise_error_messages!
+          %p
+            = f.label :email
+            %br/
+            = f.text_field :email
+          %p
+            = f.label 'Cédula'
+            %br/
+            = f.text_field :indentifier, size: '10', maxlength: '10'
+          %p
+            = f.label 'Nombre'
+            %br/
+            = f.text_field :first_name
+          %p
+            = f.label 'Apellido'
+            %br/
+            = f.text_field :last_name
+          %p
+            = f.label 'Fecha de Nacimiento'
+            %br/
+            = f.text_field :birth_date, size: '10', maxlength: '10', id: 'datepicker'
+          %p
+            = f.label 'Foto'
+            %br/
+            = f.file_field :photo
+          %p
+            = f.label 'Desea recibir más información'
+            = f.check_box :contact_me, style: 'margin-top: -5px;'
+          %p
+            = f.label 'Contraseña actual'
+            %i (Necesitamos su contraseña actual para confirmar sus cambios)
+            %br/
+            = f.password_field :current_password
+          %p
+            %button.btn.btn-primary{:type => 'submit'}
+              %i.icon-circle-arrow-right
+              Update
+
+- years_ago_18 = 18.years.ago
+- content_for :js_footer do
+  :javascript
+    $(function() {
+      $("#datepicker").datepicker({
+        dateFormat: 'yy/mm/dd',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "-70:+0",
+        defaultDate: new Date(#{years_ago_18.year},#{years_ago_18.month},#{years_ago_18.day}),
+        maxDate: 0
+      });
+    });

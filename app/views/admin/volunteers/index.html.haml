@@ -1,0 +1,96 @@
+.container.admin
+  = render 'shared/navigation_admin'
+  .row
+    .col-lg-12
+      .chart
+        %h3.module_header
+          Voluntarios
+          %span.count
+            #{@volunteers.count}
+          =# link_to 'Exportar a CSV', to_csv_admin_volunteers_path, style: "float:right;", class: 'btn'
+          = link_to 'Exportar a Excel', to_xlsx_admin_volunteers_path(format: :xlsx), style: "margin-right:10px;", class: 'btn btn-xs btn-primary pull-right'
+    .col-lg-12
+      .well
+        .row
+          .col-lg-5
+          .col-lg-2
+            Busqueda:
+            %br
+          .col-lg-5
+        .row
+        .row
+          = form_tag volunteer_filter_path, method: 'get', remote: true do
+            .col-lg-2
+            .col-lg-3
+              .row
+                .col-lg-12.pull-left
+                  .input-group.input-group-sm
+                    %label Voluntario:
+                    = text_field_tag :voluntary_name, '', class: 'form-control', placeholder: "Nombre"
+                    = hidden_field_tag :voluntary_id, @voluntary_id
+              .row     
+                .col-lg-12.pull-left
+                  .input-group.input-group-sm
+                    %label Email:
+                    = text_field_tag :email, '', class: 'form-control', placeholder: "e-mail"
+            .col-lg-2
+              .row
+                .col-md-10.pull-left
+                  .input-group.input-group-sm
+                    Fecha Inicial
+                    = text_field_tag :start_date, "", class: 'form-control datepicker date'
+              .row 
+                .col-md-10.pull-left
+                  .input-group.input-group-sm
+                    Fecha Final
+                    = text_field_tag :end_date, "", class: 'form-control datepicker date'
+            .col-lg-2
+              .row
+                .col-md-10.pull-left
+                  .input-group.input-group-sm
+                    Brigada:
+                    = select_tag :brigade_id, options_from_collection_for_select(Brigade.all, :id, :name), {include_blank: true}
+              .row
+                .col-md-10.pull-left
+                  .input-group.input-group-sm
+                    Ciudad:
+                    = select_tag :city_id, options_from_collection_for_select(City.all, :id, :name), {include_blank: true} 
+               
+            .col-md-1.pull-right
+              %button.btn.btn-succes{type: "submit", value: "Search",style:"margin-top:15px"}
+                %i.glyphicon.glyphicon-search
+            .col-md-1
+            .col-md-1
+        %br
+        .report-content
+          = render 'volunteers'        
+
+        
+- content_for :js_footer do
+  :javascript
+    $(function() {
+      $('input.datepicker').datepicker({
+        dateFormat: "yy-mm-dd",
+        changeMonth: true,
+        changeYear: true,
+        minDate: '-12M',
+        maxDate: "0"
+      });
+      $('#voluntary_name').autocomplete({
+        source: "#{admin_responsable_autocomplete_path}",
+        minLength: 1,
+        select: function( event, ui ) {
+          $(this).css("border-color","#9FF781");
+          if(ui.item) {
+            $("#voluntary_id").val(ui.item.id);
+          } else {
+            return false;
+          }
+        }
+      }).blur(function() {
+        if($(this).val() === ""){
+          $(this).css("border-color","#fff");
+          $("#voluntary_id").val("");
+        }
+      });
+    });

@@ -1,0 +1,65 @@
+!!!! 5
+%html{lang: "es"}
+  %head
+    %title Sistema de gestion de voluntarios
+    %meta{name: "description", content: "#{content_for?(:meta_description) ? yield(:meta_description) : 'Sistema de gestión de voluntariado'}"}
+    %meta{name: "keywords", content: "#{content_for?(:meta_keywords) ? yield(:meta_keywords) : 'Ecuador, Voluntariado, ayuda'}"}
+    %meta{content: "index, follow", name: "robots"}/
+    %meta{charset: 'utf-8'}
+    %link{href: "/favicon.ico", rel: "shortcut icon"}/
+    = stylesheet_link_tag "sitebootstrapper", "application"
+    %link{href: "http://fonts.googleapis.com/css?family=Quicksand:300,400,700", rel: "stylesheet", type: "text/css"}/
+    = yield :css_content
+    = csrf_meta_tag
+
+  %body{id: @page_id ? @page_name : controller_name}
+
+    /Header
+    = yield(:lower_menu) if content_for?(:lower_menu)
+
+
+    / Content
+    
+    - if !flash.empty?
+      / flash messages
+      #flash_messages_container
+        #flash_messages
+          - flash.each do |name, msg|
+            - if msg.is_a?(String)
+              .notice{class: "#{name}"}
+                %i.icon-warning-sign.icon-white
+                #{msg}
+          %br/
+      / flash messages
+      
+    = content_for?(:main_content) ? yield(:main_content) : yield
+
+    / End Content
+
+
+    / JS files
+    = javascript_include_tag "application", "sitebootstrapper"
+    :javascript
+      WebFontConfig = {
+        google: { families: [ 'Quicksand:300,400,700:latin' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+    - if !flash.empty?
+      -# flash messages
+      :javascript
+        $(function() {
+          setTimeout(function(){
+            $('#flash_messages_container').hide();
+          },3000);
+        });
+      -# flash messages
+
+    = yield :js_footer

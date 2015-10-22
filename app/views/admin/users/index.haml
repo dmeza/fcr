@@ -1,0 +1,75 @@
+.container.admin
+  = render 'shared/navigation_admin'
+  .row
+    .col-lg-12
+      .chart
+        %h3.module_header
+          Usuarios
+        #travel
+          .box
+            .options
+              = link_to 'Export to CSV', to_csv_admin_user_path(0), style: "float:right;", class: 'btn'
+        %br
+    .col-lg-12
+      .well
+        .row
+          = form_tag users_filter_path, method: 'get', remote: true do
+            .col-lg-1
+            .col-lg-1.pull-left
+              %br
+              %br
+              Busqueda:
+            .col-lg-3
+              .row
+                .col-lg-12.pull-left
+                  .input-group.input-group-sm
+                    %label Voluntario:
+                    %br
+                    = text_field_tag :user_name, '', class: 'form-control', placeholder: "Nombre"
+                    = hidden_field_tag :voluntary_id, @voluntary_id
+            .col-lg-3
+              .row    
+                .col-lg-12.pull-left
+                  .input-group.input-group-sm
+                    %label Email:
+                    %br
+                    = text_field_tag :email, '', class: 'form-control', placeholder: "e-mail"
+            .col-md-1.pull-left 
+              %br
+              %button.btn.btn-succes{type: "submit", value: "Search",style:"margin-top:15px"}
+                %i.glyphicon.glyphicon-search
+            .col-md-1  
+        .report-content
+          = render 'users' 
+
+          
+- content_for :js_footer do
+  :javascript
+    $(function() {
+      $('input.datepicker').datepicker({
+        dateFormat: "yy-mm-dd",
+        changeMonth: true,
+        changeYear: true,
+        minDate: '-12M',
+        maxDate: "0"
+      });         
+      $('#user_name').autocomplete({
+        source: "#{admin_responsable_autocomplete_path}",
+        minLength: 1,
+        select: function( event, ui ) {
+          $(this).css("border-color","#9FF781");
+          if(ui.item) {
+            $("#voluntary_id").val(ui.item.id);
+          } else {
+            return false;
+          }
+        }
+
+      }).blur(function() {
+        if($(this).val() === ""){
+          $(this).css("border-color","#fff");
+          $("#voluntary_id").val("");
+        }
+
+      });
+    });

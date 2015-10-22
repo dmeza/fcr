@@ -1,0 +1,30 @@
+= render 'shared/header'
+
+.container.detalle_evento
+  .page-header
+    %h1 Ingresar
+  .row
+    .col-lg-2
+      &nbsp;
+    .col-lg-4
+      
+      = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+        %div
+          = f.label :email
+          %br/
+          = f.email_field :email, style: 'height: 32px; padding: 5px;'
+        %div
+          = f.label 'Contraseña'
+          %br/
+          = f.password_field :password, style: 'height: 32px; padding: 5px;'
+        - if devise_mapping.rememberable?
+          %div{style: 'font-size: 0.7em;'}
+            = f.check_box :remember_me, style: 'margin-top: -5px;'
+            = f.label 'Recordarme'
+        %br/
+        %div
+          %button.btn.btn-primary{:type => 'submit'}
+            Ingresar
+
+    .col-lg-4
+      = render :partial => "devise/shared/links"

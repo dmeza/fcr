@@ -1,0 +1,36 @@
+#social_buttons
+  %hr/
+  %p Ayudanos a pasar la voz:
+  %span.facebook{style: 'padding-right: 40px;'}
+    - if defined? FB_APP_ID
+      %a{:class => "FB_share", :type => "icon_link", :href => '#', :onclick => "publishToFeed('#{request.url}','#{request.base_url}#{path_to_image('SBv2.png')}','Sitebootstrapper!','It is very simple. To post to FB.');"}
+        = image_tag'facebook1.png', style: 'position: relative; top: 4px;'
+    - else
+      To share on FB, follow instructions.
+
+  %span.twitter
+    %a.twitter-share-button{"data-count" => "horizontal", "data-text" => 'It is very simple. To post to Twitter.', "data-via" => "SitebootstrapperV2", "data-url" => request.url, :href => "http://twitter.com/share", :target => "_blank"} Tweet
+    :javascript
+      !function(d,s,id){
+        var js,fjs=d.getElementsByTagName(s)[0];
+        if(!d.getElementById(id)){
+          js=d.createElement(s);js.id=id;
+          js.src="https://platform.twitter.com/widgets.js";
+          fjs.parentNode.insertBefore(js,fjs);
+        }
+      }(document,"script","twitter-wjs");
+
+  -#
+    %span.pinterest
+      %a.pin-it-button{"count-layout" => "horizontal", :href => "http://pinterest.com/pin/create/button/?url=#{CGI.escape(request.url)}&media=#{CGI.escape("#{request.base_url}#{path_to_image('SBv2.png')}")}&description=#{CGI.escape('It is very simple. To post to Pinterest.')}", :target => "_blank"}
+        %img(border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It")
+      = javascript_include_tag "//assets.pinterest.com/js/pinit.js"
+
+  %span.google_plus
+    %a.g-plus{"data-action" => "share", "data-annotation" => "bubble", "data-href" => request.url}
+    :javascript
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+      })();

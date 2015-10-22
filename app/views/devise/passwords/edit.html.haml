@@ -1,0 +1,27 @@
+= render 'shared/header'
+
+.container.detalle_evento
+  .page-header
+    %h1 Cambie su password
+  .row
+    .col-lg-2
+      &nbsp;
+    .col-lg-4
+      = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
+        = devise_error_messages!
+        = f.hidden_field :reset_password_token
+        %div
+          = f.label :password, "Nuevo password"
+          %br/
+          = f.password_field :password
+        %div
+          = f.label :password_confirmation, "Confirmar nuevo password"
+          %br/
+          = f.password_field :password_confirmation
+        %br/
+        %div
+          %button.btn.btn-primary{:type => 'submit'}
+            Cambiar mi password
+
+    .col-lg-4
+      = render :partial => "devise/shared/links"

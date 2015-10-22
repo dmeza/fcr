@@ -1,0 +1,105 @@
+= render 'shared/header'
+
+.container.detalle_evento
+  .row
+    .col-lg-12
+      .page-header
+        %h1 #{@event.name}
+  .row
+    .col-lg-4.col-md-4.col-sm-4
+      %p
+        %span.glyphicon.glyphicon-home
+        Lugar:
+        %br/
+        %br/
+        %strong #{@event.place}
+      %hr/
+      %p
+        %span.glyphicon.glyphicon-calendar
+        Cuándo:
+        %br/
+        %br/
+        %strong #{@event.event_date.strftime("%Y-%m-%d")}
+        %br/
+        %strong Inicio: #{@event.event_date.strftime("%H:%M")}
+        %br/
+        %strong Fin: #{@event.end_time.strftime("%H:%M")}
+      %hr/
+      %p
+        %span.glyphicon.glyphicon-user
+        Rol del voluntario:
+        %br/
+        %br/
+        %strong #{@event.role}
+      - if @event.event_type.requires_inception
+        %hr/
+        %p
+          %span.glyphicon.glyphicon-list-alt
+          Área de intervención:
+          %br/
+          %br/
+          %strong #{@event.area.name}
+
+    
+    .col-lg-8.col-md-8.col-sm-8
+      - if ((@event.activation_date || @event.created_at) > DateTime.now) # not open to registration yet
+        .alert.alert-warning
+          Los registros en línea se abrirán desde:
+          #{(@event.activation_date || @event.created_at).strftime("%d/%m/%Y")}
+          %br/
+          Te esperamos!
+      - else
+        - if @event.event_date < (DateTime.now - 24.hours) # Registration is closed
+          .alert.alert-warning
+            Los registros se deben realizar 24 horas antes del evento
+        - else # registration open
+          - if current_user # user is logged in
+            - if @event.requires_adult && !current_user.is_adult?
+              Este evento require que sea mayor de edad para poder participar
+            - else # event does not require adult or user is adult
+              - if @event.users.include? current_user # Already has a volunteer spot for this event
+                Usted ya tiene un cupo como voluntario, para este evento
+              - else
+                - if @event.is_open? || current_user.has_induction? # already has induction
+                  - if !@event.brigade_id.present? || @event.brigade_id == current_user.brigade_id
+                    - if @event.event_type.has_limit
+                      - available = @event.spaces - @event.used
+                      - if available == 0 # no spaces available
+                        %div
+                          No hay cupos disponibles para este evento.
+                          Por favor revise
+                          = link_to 'otros eventos', root_path
+                      - else # spaces available
+                        %div
+                          Cupos disponibles: #{available}
+                          %div
+                            %br/
+                            = link_to 'Participar en el evento', join_path(@event.id), data: { confirm: "Estas Seguro?" }, class: 'btn btn-primary'
+                            %br/
+                    - else
+                      %div
+                        Cupos disponibles
+                        %div
+                          %br/
+                          = link_to 'Participar en el evento', join_path(@event.id), data: { confirm: "Estas Seguro?" }, class: 'btn btn-primary'
+                          %br/
+                  - else
+                    Esta es una actividad para la brigada "#{@event.brigade.name}"
+
+                - else # doesn't have induction yet
+                  Como pre-requisito, debe participar en una induccion antes de poder ser voluntario.
+                  %br
+                  Siguientes inducciones:
+                  - @next_inductions.each do |induction|
+                    %br/
+                    = link_to "#{induction.place} (#{induction.event_date.strftime("%Y-%m-%d %H:%M")})", event_path(induction.id)
+          - else # not logged in
+            Necesita
+            =# link_to 'Registrarse', # new_registration_path(:user)
+            = link_to 'Ingresar', logged_path(@event.id) #new_session_path(:user)
+            al sistema para participar en el evento.
+      %div 
+        %br/
+        #{@event.description}
+
+  =# render 'shared/social_buttons'

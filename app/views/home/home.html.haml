@@ -1,0 +1,18 @@
+= render 'shared/header'
+
+.container
+  .alert.alert-success.alert-dismissable
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", type: "button"} ×
+    %h2 Hola, #{current_user.full_name}!  La ciudad en la que estás registrado es: #{current_user.city.name}    #{link_to "Cambiar", edit_user_registration_path, :class => ('active' if controller_name == 'registrations')}
+  = render 'calendar'
+  %br/
+  %br/
+  
+-if false
+  .row.marketing
+    .col-lg-6
+      %h4 Eventos
+      = render 'events'
+    
+= render 'shared/footer' 
+    

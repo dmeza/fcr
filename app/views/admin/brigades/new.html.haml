@@ -1,0 +1,34 @@
+.container.admin
+  = render 'shared/navigation_admin'
+  .row.adform
+    = form_for @brigade, url: (@brigade.new_record? ? admin_brigade_path : admin_brigade_path(@brigade.id)), method: (@brigade.new_record? ? 'post' : 'put'), html: {id: 'brigadeForm'} do |f|
+    
+      .chart
+        %h3.module_header
+          #{(@brigade.new_record? ? 'Nueva brigada' : "Editar brigada")}
+      
+      .col-lg-6
+        .temp_list
+          %ul
+            %li
+              - unless @brigade.errors.empty?
+                .alert.alert-danger.errors
+                  = @brigade.errors.full_messages.join(', ')
+            %li
+              .row
+                .col-lg-3
+                  %span Tipo de Evento *
+                .col-lg-9
+                  = f.select :program_id, options_from_collection_for_select(Program.all, :id, :name, @brigade.program_id)
+            %li
+              .row
+                .col-lg-3
+                  %span Nombre *
+                .col-lg-9
+                  = f.text_field :name, size: '150', maxlenght: '150'
+            %li
+              %i{style: 'font-size: 12px;'} Los campos marcados con * son obligatorios
+              %hr/
+              .botones
+                = link_to "Guardar", "#", onclick: "$('#brigadeForm').submit(); return false;", class: 'btn btn-inverse'
+                = link_to "Cancelar", admin_brigades_path, class: 'btn'

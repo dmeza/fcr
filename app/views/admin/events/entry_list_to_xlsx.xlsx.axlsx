@@ -1,0 +1,17 @@
+wb = xlsx_package.workbook
+wb.styles.fonts.first.name = 'Times New Roman'
+st_header = wb.styles.add_style border: Axlsx::STYLE_THIN_BORDER, b: true, alignment: { horizontal: :center, vertical: :center, wrap_text: true }, sz: 10
+st_detail = wb.styles.add_style border: Axlsx::STYLE_THIN_BORDER, alignment: { horizontal: :center, vertical: :center, wrap_text: true }, sz: 10
+wb.add_worksheet(name: "Propuesta #{params[:type]}", page_setup: { fit_to_width: 1 }) do |sheet|
+  sheet.page_setup.set(paper_width: "210mm", paper_height: "297mm")
+  #header
+  sheet.add_row [], height: 13 #empty
+  sheet.add_row ["#{@event.name}", "#{@event.event_date.strftime('%Y/%m/%d')}"], style: st_header
+  sheet.add_row ['Nombre', 'Email', 'Cédula', 'Fecha Nacimiento', 'Brigadista'], style: st_header
+
+  @events_users.each do |events_user|
+    user = events_user.user
+    sheet.add_row ["#{user.full_name}", "#{user.email}", "#{user.indentifier}", "#{user.birth_date.strftime("%Y-%m-%d") unless user.birth_date.nil?}", "#{events_user.is_brigadist ? 'Sí' : 'No'}"], style: st_detail
+  end
+
+end

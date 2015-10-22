@@ -1,0 +1,89 @@
+.container.admin
+  = render 'shared/navigation_leader'
+  .row
+    
+    .col-lg-12
+  
+      %br/
+      .panel.panel-default
+        .panel-heading
+          Gestion de Brigadistas
+        .panel-body
+          %table.table.table-bordered{style: 'background-color: #fff;'}
+            %tr
+              %td Tipo de Evento: #{@event.event_type.name}
+              %td Ciudad: #{@event.city.name}
+              %td Área: #{@event.area.name}
+            %tr
+              %td 
+                %b Nombre: #{@event.name}
+              %td Lugar: #{@event.place}
+              %td Fecha de activación: #{@event.activation_date.strftime("%d/%m/%Y ")}
+            %tr
+              %td Fecha de evento: #{@event.event_date.strftime("%d/%m/%Y")}
+              %td Hora: #{@event.event_date.strftime("%I:%M")}
+              %td Rol: #{@event.role}
+            %tr
+              %td Espacios disponibles : #{@event.spaces - @event.used}
+              %td Responsable: #{@event.responsable_name}
+              %td Descripci&oacute;n:: #{@event.description}
+            %tr
+              %td Mayores de edad: #{@event.requires_adult ? 'Sí' : 'No'}
+              %td Estado: #{@event.state}
+              %td
+
+    .col-lg-12
+      .panel.panel-default
+        .panel-heading
+          .row
+            .col-lg-3
+              %label.pull-right Nombre del Brigadista *
+            .col-lg-5
+              = text_field_tag :brigadista_name, '', class: 'form-control', placeholder: "Nombre"
+ 
+        .panel-body
+          .row.temp_list
+            .col-lg-6
+              %h4 Brigadistas
+              %ul.brigadists
+                - @event.events_users.brigadists.each do |events_user|
+                  = render 'brigadist', events_user: events_user
+            .col-lg-6
+              %h4 Voluntarios registrados
+              %ul
+                - @event.events_users.non_brigadists.each do |events_user|
+                  = render 'brigadist', events_user: events_user
+
+                
+
+- content_for :js_footer do
+  :javascript
+    $(function() {
+      $('#brigadista_name').autocomplete({
+        source: "#{responsable_autocomplete_path}",
+        minLength: 1,
+        select: function( event, ui ) {
+          if(ui.item) {
+            $.ajax({
+              url: "#{add_brigadist_path(@event.id)}",
+              type: 'post',
+              dataType: 'script',
+              data: {user_id: ui.item.id},
+            });
+            $(this).val('');  
+            return false;
+          } else {
+            return false;
+          }
+        }
+      });
+      $('.brigadists').on('click', 'a.delete-brigadist', function() {
+        $.ajax({
+          url: "#{remove_brigadist_path(@event.id)}",
+          type: 'post',
+          dataType: 'script',
+          data: {events_user_id: $(this).data('id')},
+        });
+      });
+
+    });

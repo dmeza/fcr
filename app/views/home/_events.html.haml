@@ -1,0 +1,25 @@
+%div
+  .box
+    .options
+      = page_entries_info @events
+      = will_paginate @events
+      %span{style: "float:right;"}=# link_to 'Export to CSV', to_csv_admin_event_path(0)
+    %table{width: "100%"}
+      %tr
+        %th Nombre
+        %th Lugar
+        %th Usados (Espacios)
+        %th Fecha
+      - @events.each do |event|
+        %tr
+          %td= link_to "#{event.name} (#{event.event_type})", event_path(event.id)
+          %td= event.place
+          %td "#{event.used} (#{event.spaces})"
+          %td= event.event_date.strftime("%Y-%m-%d %H:%M")
+
+      %tr
+        %td{colspan: "4"}
+      %tr
+        %td{colspan: "4"}
+          = page_entries_info @events
+          = will_paginate @events

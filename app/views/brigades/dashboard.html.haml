@@ -1,0 +1,16 @@
+=# content_for :lower_menu do
+.container.admin
+  = render 'shared/navigation_leader'
+  .row
+    .col-lg-12
+      .chart
+        %h3.module_header Eventos en que eres responsable
+        .lista_eventos.temp_list
+          %ul
+            - @events.each do |event|
+              %li              
+                = link_to view_event_path(event.id) do
+                  %span
+                    #{event.name} (#{event.event_type.name}: #{event.area.name})
+                  %label
+                    = event.event_date.strftime("%Y-%m-%d %H:%M")

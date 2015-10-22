@@ -1,0 +1,30 @@
+!!!! 5
+%html{lang: "es"}
+  %head
+    %title Sistema de Gestion de Voluntarios
+    %meta{name: "description", content: "#{content_for?(:meta_description) ? yield(:meta_description) : 'Sistema de gestión de voluntariado'}"}
+    %meta{name: "keywords", content: "#{content_for?(:meta_keywords) ? yield(:meta_keywords) : 'Ecuador, Voluntariado, ayuda'}"}
+    %meta{content: "index, follow", name: "robots"}/
+    %meta{charset: 'utf-8'}
+    %link{href: "/favicon.ico", rel: "shortcut icon"}/
+    = stylesheet_link_tag "info"
+    = csrf_meta_tag
+
+  %body{id: @page_id ? @page_name : controller_name}
+
+    / Content
+    = content_for?(:main_content) ? yield(:main_content) : yield
+    / End Content
+
+    / JS files
+    = javascript_include_tag "info"
+
+    - if !flash.empty?
+      -# flash messages
+      :javascript
+        $(function() {
+          setTimeout(function(){
+            $('#flash_messages_container').hide();
+          },3000);
+        });
+      -# flash messages

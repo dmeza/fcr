@@ -1,0 +1,222 @@
+/ Header Wrapper
+#header-wrapper
+  / Hero
+  %section#hero.container
+    %h2
+      Plataforma de gestión de voluntariado "Acolita"
+      / , versión: 0.1
+    %p
+      Emprendedores motivados a apoyar proyectos de impacto social.
+    /
+      %ul.actions
+        %li
+          =link_to 'Conoce más', '#resumen', class: "button"
+
+
+- unless flash[:notice].blank?
+  .notice{style: 'text-align: center; color: red; font-weight: bold; font-size: 25px; margin: 15px;'}
+    = flash[:notice]
+
+/ Main Wrapper
+.wrapper
+  %a{name: "resumen"}
+  .container
+    #main.row
+      .3u
+        / Sidebar
+        %section#sidebar
+          %section
+            .cite{style: 'float: none; width: auto; padding-left: 0px;'}
+              Crear una nueva plataforma para aumentar el voluntariado en el país, gratuita y sin fines de lucro
+            %ul.actions
+              %li
+                %a.button{href: "/"} Visita el calendario de eventos de voluntariado aquí. ¡Regístrate!
+
+      .9u.skel-cell-important
+        / Content
+        %article#content
+          %header
+            %h2 "Acolita!"
+
+          .cite
+            "Formamos nuestras herramientas y luego éstas nos forman"
+            %br/
+            %span - Marshall McLuhan 
+          /
+            .image.full
+              = image_tag "public/pic02.jpg"
+
+          %p
+            Nosotros creemos que entre los recursos más desperdiciados se encuentran las buenas intenciones de la gente. A veces nos encontramos con ganas de contribuir a la sociedad, pero no sabemos dónde ni cómo empezar.
+          %p
+            A través de nuestra plataforma de gestión de voluntariado buscamos conectar la oferta de buena voluntad con la demanda de oportunidad. Permitimos a las organizaciones, que buscan voluntarios para llevar a cabo su trabajo social, anunciar sus oportunidades. Los voluntarios potenciales, en cambio, pueden revisar las opciones y encontrar las que más corresponden a sus interés, destrezas y tiempo.
+          %p
+            Hemos desarrollado un sistema para promocionar y concienciar al voluntariado en la sociedad, así como sensibilizar a las personas a aportar.
+            Queremos motivar proporcionando y facilitando información acerca de las oportunidades y la necesidad de participación voluntaria.
+          %p
+            = link_to 'Historia por Matt Carpenter-Arevalo', '/info/historia'
+
+%hr/
+
+.wrapper
+  %section.container
+    #main.row
+      .4u
+        / Sidebar
+        %section#sidebar
+          %section
+            %header
+              %h3 Historia
+            %p Con pasión por la tecnología y por el emprendimiento, nos propusimos ayudar a familias con niños con problemas de salud y necesidades financieras relacionadas con esta realidad. Esto nos llevó a encontrar el gran trabajo de Fundación Cecilia Rivadeneira con niños y jóvenes que luchan contra el cáncer. Nos juntamos y decidimos colaborar considerando los retos de la Fundación y las actividades donde más útil sería nuestro aporte.
+          %section
+            %header
+              %h3 Propuesta
+            %p Definimos una necesidad: convocar voluntarios y facilitarles participar en los eventos que la fundación organiza. La plataforma es una red canalizadora de voluntarios: dará a conocer a la ciudadanía en general y posibles voluntarios/as, cómo pueden trabajar como voluntarios y en qué eventos pueden participar, según sus preferencias y según sus campos de acción donde exista una necesidad.
+            %ul.actions
+              %li
+                %a.button{href: "/"} Visita el calendario de eventos de voluntariado aquí. ¡Regístrate!
+      .8u.skel-cell-important
+        / Content
+        %article#content
+          %header
+            = image_tag "public/logo_fcr.png", style: "float: left; margin-right: 15px;"
+            %h2 Fundación Cecilia Rivadeneira
+            %span Apoyamos con esta herramienta a la buena gestión del equipo de esta comprometida Fundación.
+          .image.full
+            = image_tag "public/pic02.jpg"
+          %p
+            La Fundación Cecilia Rivadeneira (FCR) nació en el 2004 para transformar la vida de los niños ecuatorianos que padecen cáncer y su entorno familiar y social. Es un trabajo realizado con corazón, cabeza y todas las manos posibles enfocadas en tocar todos los frentes que afecten al entorno de los pequeños.
+          %p
+            Es una organización que no solo acaricia, toca, siente, besa, sino que es capaz de transformar, efectivamente la vida de los niños con cáncer y sus familias en el Ecuador. Hay que construir una sociedad mucho más optimista y solidaria. Al lograrlo, el resultado es multiplicador y los beneficiarios son todos. Devolver a los niños con cáncer y sus familias el derecho a sonreír es el trabajo integral que realiza la Fundación.
+%hr/
+/ Promo
+/
+  #promo-wrapper
+    %section#promo
+      %h2 Quieres ser parte de esta comunidad
+      %a.button.anchor{href: "#info_form"} Cuéntanos de ti
+
+/ Features 2
+.wrapper
+  %section.container
+    %header.major
+      %h2 Somos un equipo dedicado a las tecnologías de la información.
+      %span{style: "font-style: italic;"}
+        Vemos que existen muchos problemas y necesidades en la sociedad. Creemos que nuestro deber es aportar con lo que nos gusta hacer, para los grupos de menos oportunidades.
+    .row.features
+      %section.4u.feature
+        .image-wrapper.first
+          %a.image.full{href: "http://alturasoluciones.com", target: '_blank'}
+            = image_tag "public/pic03.png"
+        %p
+          %strong> Consultoría en tecnologías de la información.
+          Somos una empresa ágil de desarrollo web y móvil.
+      %section.4u.feature
+        .image-wrapper
+          %a.image.full{href: "https://www.facebook.com/groups/526745534043683/", target: '_blank'}
+            = image_tag "public/pic04.png"
+        %p
+          %strong EC Startups 
+          es la comunidad de emprendedores tecnológicos del Ecuador que tiene como objetivo ayudar a otros emprendedores. Creemos que es primordial solucionar problemas sociales a través del uso de la tecnología. 
+      %section.4u.feature
+        .image-wrapper
+          %a.image.full{href: "http://vimeworks.com", target: '_blank'}
+            = image_tag "public/pic07.png"
+        %p VimeWorks Cía. Ltda., es una empresa de desarrollo de software con amplia experiencia dentro y fuera del país.
+    %header.major
+      %span Existen muchas cosas por hacer en nuestro país (estamos basados en Ecuador). Creemos que el emprendimiento social no solo genera satisfacción entre quienes participan y ayudan, sino también sustentabilidad. Con ejemplos concretos de cómo podemos colaborar a través de la tecnología, nuestra idea es fortalecer y hacer crecer una red en la que podamos aportar con nuestros conocimientos y generar conexiones para participar de manera activa.
+
+/ Footer Wrapper
+#footer-wrapper
+  / Footer
+  #footer.container
+    %header.major
+      %h2 Ponte en contacto
+      %span Si quieres ser parte de esta comunidad de profesionales y emprendedores, o necesitas apoyo para tu proyecto social, escríbenos.
+    .row
+      %section.8u
+        = form_tag info_send_mail_path, :id => 'info_form' do
+          .row.half
+            .6u
+              %input.text{name: "name", placeholder: "Nombre", type: "text", value: params[:name]}/
+            .6u
+              %input.text{name: "email", placeholder: "Email", type: "text", value: params[:email]}/
+          .row.half
+            .12u
+              %textarea{name: "message", placeholder: "Mensaje"}
+                = params[:message]
+          .row.half
+            .12u
+              %ul.actions
+                %li
+                  %a.button{href: "", onclick:"document.getElementById('info_form').submit(); return false;"} Enviar
+      %section.1u
+        &nbsp;
+      %section.3u
+        %h4 Participan:
+        %hr/
+        .row.no-collapse-1
+
+          /
+            %ul
+              %li
+                %a{href: "https://twitter.com/jesicamadrid"} @jesicamadrid
+              %li
+                %a{href: "https://twitter.com/ecuamatt"} @ecuamatt
+              %li
+                %a{href: "https://twitter.com/danielaperalvo"} @danielaperalvo
+              %li
+                %a{href: "https://twitter.com/mxsantacruz"} @mxsantacruz
+              %li
+                %a{href: "https://twitter.com/otrozapata"} @otrozapata
+              %li
+                %a{href: "https://twitter.com/aguardientico"} @aguardientico
+              %li
+                %a{href: "https://www.facebook.com/nicodiazm"} (fb) nicodiazm
+              %li
+                %a{href: "https://twitter.com/davidmezag"} @davidmezag
+              %li
+                %a{href: "https://twitter.com/ECStartups"} @ECStartups
+            
+
+          %ul.6u
+            %li
+              %a{href: "https://twitter.com/jesicamadrid"} @jesicamadrid
+            %li
+              %a{href: "https://twitter.com/ecuamatt"} @ecuamatt
+            %li
+              %a{href: "https://twitter.com/otrozapata"} @otrozapata
+            %li
+              %a{href: "https://www.facebook.com/nicodiazm"} (fb) nicodiazm
+              %li
+                %a{href: "https://twitter.com/ECStartups"} @ECStartups
+          %ul.6u
+            %li
+              %a{href: "https://twitter.com/danielaperalvo"} @danielaperalvo
+            %li
+              %a{href: "https://twitter.com/mxsantacruz"} @mxsantacruz
+            %li
+              %a{href: "https://twitter.com/aguardientico"} @aguardientico
+            %li
+              %a{href: "https://twitter.com/davidmezag"} @davidmezag
+  / Copyright
+  #copyright.container
+    %ul.menu
+      %li © Todos los derechos reservados.
+      %li
+        Información:
+        %a{href: "mailto: info@alturasoluciones.com"} info@acolita.org
+
+= content_for  :css_header do
+  = stylesheet_link_tag "info"
+
+= content_for :js_footer do
+  :javascript
+    $(function() {
+      $('a.anchor').click(function() {
+        $('html, body').stop().animate({
+          scrollTop: $($(this).attr('href')).offset().top
+        }, 1500,'easeInOutExpo');
+        event.preventDefault();
+      });
+    });

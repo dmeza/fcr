@@ -1,0 +1,22 @@
+= render 'shared/header'
+
+.container.detalle_evento
+  .page-header
+    %h1 Reenviar instrucciones de confirmación
+  .row
+    .col-lg-2
+      &nbsp;
+    .col-lg-4
+      = form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f|
+        = devise_error_messages!
+        %div
+          = f.label :email
+          %br/
+          = f.email_field :email
+        %br/
+        %div
+          %button.btn.btn-primary{:type => 'submit'}
+            Reenviar ahora
+
+    .col-lg-4
+      = render :partial => "devise/shared/links"

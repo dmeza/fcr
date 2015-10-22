@@ -1,0 +1,27 @@
+=# content_for :lower_menu do
+.container.admin
+  = render 'shared/navigation_admin'
+  .row
+    .col-lg-6
+      .chart
+        %h3.module_header Eventos
+        .lista_eventos.temp_list
+          %ul
+            - @events.each do |event|
+              %li              
+                = link_to edit_admin_event_path(event.id) do
+                  %span
+                    #{event.name} (#{event.event_type.name}: #{event.area.name})
+                  %label
+                    = event.event_date.strftime("%Y-%m-%d %H:%M")
+
+    .col-lg-6
+      .chart
+        %h3.module_header Sin inducción
+        .lista_registrados.temp_list
+          %ul
+            - @nonactive_volunteers.each do |volunteer|
+              %li
+                %span #{volunteer.name}
+                %label
+                  = link_to('activar', activate_admin_volunteer_path(volunteer.id), remote: true, method: :post, confirm: "Seguro que quire activar al voluntaroio: #{volunteer.email}?")

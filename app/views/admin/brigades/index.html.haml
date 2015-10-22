@@ -1,0 +1,19 @@
+.container.admin
+  = render 'shared/navigation_admin'
+  .row
+    .col-lg-10
+      .chart
+        %h3.module_header
+          Brigadas
+          %span.count
+            #{@brigades.count}
+          %span{style: "float:right;"}
+        %br
+    .col-lg-2
+      %a.my_button{href: new_admin_brigade_path, style: 'margin-top: 30px;'}
+        Nueva Brigada       
+    .col-lg-12
+      .well
+        .row
+        .report-content
+          = render 'brigades_list' 

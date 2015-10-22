@@ -1,0 +1,55 @@
+.container.admin
+  = render 'shared/navigation_admin'
+  .row.adform
+    .chart
+      %h3.module_header Subir imagenes de evento
+    .col-lg-12
+      .panel-body
+        %table.table.table-bordered{style: 'background-color: #fff;'}
+          %tr
+            %td Tipo de Evento: #{@event.event_type.name}
+            %td Ciudad: #{@event.city.name}
+            %td Área: #{@event.area.name}
+          %tr
+            %td Nombre: #{@event.name}
+            %td Lugar: #{@event.place}
+            %td Fecha de activación: #{@event.activation_date.strftime("%d/%m/%Y ")}
+          %tr
+            %td Fecha de evento: #{@event.event_date.strftime("%d/%m/%Y")}
+            %td Hora: #{@event.event_date.strftime("%I:%M")}
+            %td Rol: #{@event.role}
+          %tr
+            %td Responsable: #{@event.responsable_name}
+            %td Descripci&oacute;n:: #{@event.description}
+            %td Mayores de edad: #{@event.requires_adult ? 'Sí' : 'No'}
+          %tr
+            %td Estado: #{@event.state}
+      .chart
+        %h3.module_header Imagenes
+    .col-lg-12
+      .row
+        - @event.event_images.each do |event_image|
+          - if !event_image.image_file_name.nil?
+            .col-md-3.col-sm-4
+              .caja-imagen
+                = link_to image_tag(event_image.image.url(:large)), event_image.image.url, target: '_blank'
+                = link_to 'X', destroy_image_admin_event_path(event_image.id), confirm: "Are you sure you want to delete image?", method: :delete
+    = form_for @event_image, url: add_image_admin_event_path(@event.id), method: :post, html: {id: 'eventForm'} do |f|
+      .col-lg-12
+        %ul
+          %li
+            - unless @event_image.errors.empty?
+              .alert.alert-danger.errors
+                = @event_image.errors.full_messages.join(', ')
+        .temp_list
+          %ul
+            %li
+              .row
+                .col-lg-3 Agregar imagen:
+                .col-lg-3
+                  = f.file_field :image
+            %li
+              .botones
+                = link_to "Guardar", "#", onclick: "$('#eventForm').submit(); return false;", class: 'btn btn-inverse'
+                = link_to "Cancelar", admin_events_path, class: 'btn'
+    

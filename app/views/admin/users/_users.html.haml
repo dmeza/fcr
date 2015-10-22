@@ -1,0 +1,23 @@
+%br
+%table.table.table-striped
+  %tr
+    %th Name
+    %th Email
+    %th Create at
+    %th Send email
+    %th Status
+    %th Role
+    %th Login as
+    %th 
+  - @users.each do |user|
+    %tr
+      %td= user.full_name
+      %td= user.email
+      %td= user.created_at.strftime("%Y-%m-%d %H:%M")
+      %td= user.status
+      %td= link_to('resend activation', resend_activation_admin_user_path(user.id), :class => 'resend_activation', :remote => true) if !user.active_for_authentication?
+      %td= (user.is_admin? ? 'Admin' : link_to('make admin', make_admin_admin_user_path(user.id), data: {confirm: "Are you sure you want to make user: #{user.email} an admin?"}, method: :post))
+      %td= link_to "login as", login_as_admin_user_path(user.id)
+      %td= button_to "delete", admin_user_path(user.id), data: {confirm: "Are you sure you want to delete user: #{user.email}?"}, method: :delete
+  = page_entries_info @events
+  = will_paginate @events

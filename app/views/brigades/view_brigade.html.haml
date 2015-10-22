@@ -1,0 +1,18 @@
+.container.admin
+  = render 'shared/navigation_leader'
+  .row
+    .col-lg-12
+      %br/
+      .panel.panel-default
+        .panel-heading
+          Miembros de la Brigada #{@brigade.name}
+        .panel-body
+          %table.table.table-bordered{style: 'background-color: #fff;'}
+            %thead
+              %tr
+                %th Nombre
+                %th Email
+            - @brigade.members.each do |member|
+              %tr 
+                %td #{member.name}
+                %td #{member.email}

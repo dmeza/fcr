@@ -1,0 +1,50 @@
+.header
+  .header_top
+    .menu
+      %a.toggleMenu{href: "#"}
+        %img{alt: "", src: "/assets/nav.png"}/
+      %ul.nav
+        %li
+          = link_to root_path do
+            Calendario
+        - if current_user.is_event_responsable?
+          %li{class: ('active' if @selected_menu == 'Dash')}
+            = link_to brigades_dash_path do
+              %i>
+                %img{alt: "", src: "/assets/statistics.png"}/
+              Eventos
+
+        - if current_user.is_brigade_leader?
+          %li{class: ('active' if @selected_menu == 'Dash')}
+            = link_to brigades_index_path do
+              %i>
+                %img{alt: "", src: "/assets/statistics.png"}/
+              Brigadas
+            
+        .clear
+      %script{src: "/assets/responsive-nav.js", type: "text/javascript"}
+    .profile_details
+      #loginContainer
+        %a#loginButton
+          %span Yo
+        #loginBox
+          %form#loginForm
+            %fieldset#body
+              .user-info
+                %h4
+                  Hello,
+                  %a{href: "#"} Username
+                %ul
+                  %li
+                    = image_tag(current_user.photo.url, :size => "40x40", :alt => "")
+                    = link_to current_user.full_name, edit_user_registration_path, :class => ('active' if controller_name == 'registrations')
+                    
+
+                  %li= link_to 'Salir', destroy_user_session_path, :method => 'delete'
+
+                  .clear
+      .profile_img
+        %a{href: "#"}
+          %img{alt: "", src: "/assets/profile_img40x40.jpg"}/
+      .clear
+    .clear

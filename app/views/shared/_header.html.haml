@@ -1,0 +1,21 @@
+.jumbotron.imagen_portada{style: 'height: 0px; padding: 0px;'}
+  /
+    .logo_org
+    .frases
+      #carousel-example-generic.carousel.slide{"data-ride" => "carousel"}
+        .carousel-inner
+          .item.active
+            "Frase número uno."
+            .autor
+              \- Autor de la frase
+          .item.active
+            "Con pasión por la tecnología."
+            .autor
+              \- Autor de la frase
+          .item.active
+            "La obra humana más bella es la de ser útil al prójimo."
+            .autor
+              \- Sófocles
+
+  %nav.menu_portada{role: "navigation"}
+    =render "shared/navigation_public"

@@ -1,0 +1,7 @@
+<p>Hola <%= @resource.email %>!</p>
+
+<p>Su cuenta ha sido bloqueada por la excesiva cantidad de intentos fallidos de ingresar con su cuenta.</p>
+
+<p>De Click en el enlace de abajo para desbloquear su cuenta:</p>
+
+<p><%= link_to 'Desbloquear mi cuenta', unlock_url(@resource, :unlock_token => @resource.unlock_token) %></p>

@@ -1,0 +1,5 @@
+%li.brigadist{class: "bigadist-#{events_user.id}"}
+	- user = events_user.user
+	#{user.name} - #{user.indentifier} - #{user.email} - #{user.mobile} - #{user.brigade.name if user.brigade_id}
+	- if events_user.is_brigadist
+		= link_to 'X', "#", class: "btn btn-default pull-right delete-brigadist", data: {id: events_user.id}

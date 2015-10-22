@@ -1,0 +1,26 @@
+.menu_usuario.btn-group{style: 'margin-top: 20px;'}
+  
+  - if user_signed_in?
+    = link_to edit_user_registration_path, :class => (controller_name == 'registrations' ? 'active btn btn-default' : 'btn btn-default') do
+      = image_tag(current_user.photo.url, :size => "15x15", :alt => "")
+      #{current_user.full_name}
+    - if request.fullpath != "/"
+      = link_to 'Calendario', "/", class: 'btn btn-info', type: 'button'
+    - if(session["admin_user_id"])
+      = link_to 'Administrar', return_to_admin_path, class: 'btn btn-default', type: 'button'
+    - else
+      - if current_user.is_admin?
+        = link_to 'Administrar', admin_dash_path, type: "button", target: '_blank', class: ((request.fullpath.starts_with? '/admin') ? 'active btn btn-default' : 'btn btn-default')
+    - if current_user.is_brigade_leader? || current_user.is_event_responsable?
+      = link_to 'Gestionar eventos', (current_user.is_brigade_leader? ? brigades_index_path : brigades_dash_path), type: "button", target: '_blank', class: ((request.fullpath.starts_with? '/brigades') ? 'active btn btn-default' : 'btn btn-default')
+    = link_to 'Salir', destroy_user_session_path, :method => 'delete', class: 'btn btn-default'
+  
+  - else
+    = link_to 'Ingresar', new_session_path(:user), class: 'btn btn-primary', type: 'button'
+    
+    - if request.fullpath != "/"
+      = link_to 'Calendario', "/", class: 'btn btn-info', type: 'button'
+    
+    = link_to 'Registro', new_registration_path(:user), class: 'btn btn-default', type: 'button'
+    = link_to 'Sobre el sistema', '/info', class: 'btn btn-default', type: 'button', target: '_blank'
+

@@ -1,0 +1,19 @@
+.row
+  .col-md-12
+    %table.table.table-striped.table-hover
+      %thead
+        %tr
+          %th Nombre
+          %th Programa
+          %th Actions
+      %tbody
+        - @brigades.each do |brigade|
+          %tr
+            %td= link_to "#{brigade.name}", edit_admin_brigade_path(brigade.id)
+            %td= brigade.program.name
+            %td
+              = link_to admin_brigade_path(brigade.id), method: :delete, class: 'btn btn-default btn-sm delete', title: 'Delete', data: {toggle: 'tooltip', confirm: "Esta segur@ que desea borrar la brigada: #{brigade.name}?"} do
+                %i.glyphicon.glyphicon-trash
+
+    = page_entries_info @volunteers
+    = will_paginate @volunteers

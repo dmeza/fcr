@@ -1,0 +1,16 @@
+=# content_for :lower_menu do
+.container.admin
+  = render 'shared/navigation_leader'
+  .row
+    .col-lg-12
+      .chart
+        %h3.module_header Brigadas en que eres responsable
+        .lista_eventos.temp_list
+          %ul
+            - @brigades.each do |member|
+              %li              
+                = link_to view_brigade_path(member.id) do
+                  %span
+                    #{member.name} (#{member.brigade_leader_name})
+                  %label
+                    = member.created_at.strftime("%Y-%m-%d %H:%M")

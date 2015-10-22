@@ -1,0 +1,72 @@
+.container.admin
+  = render 'shared/navigation_admin'
+  .row.adform
+    = form_for @brigade, url: (@brigade.new_record? ? admin_brigades_path : admin_brigade_path(@brigade.id)), method: (@brigade.new_record? ? 'post' : 'put'), html: {id: 'brigadeForm'} do |f|
+    
+      .chart
+        %h3.module_header
+          #{(@brigade.new_record? ? 'Nueva brigada' : "Editar brigada")}
+      
+      .col-lg-6
+        .temp_list
+          %ul
+            %li
+              - unless @brigade.errors.empty?
+                .alert.alert-danger.errors
+                  = @brigade.errors.full_messages.join(', ')
+            %li
+              .row
+                .col-lg-3
+                  %span Tipo de Evento *
+                .col-lg-9
+                  = f.select :program_id, options_from_collection_for_select(Program.all, :id, :name, @brigade.program_id)
+            %li
+              .row
+                .col-lg-3
+                  %span Nombre *
+                .col-lg-9
+                  = f.text_field :name, size: '150', maxlenght: '150'
+            %li
+              .row
+                .col-lg-3
+                  %span Lider de Brigada *
+                .col-lg-9
+                  = f.hidden_field :brigade_leader_id
+                  = text_field_tag :brigade_leader_name, @brigade.brigade_leader_name, size: '150', maxlenght: '150'
+            %li
+              %i{style: 'font-size: 12px;'} Los campos marcados con * son obligatorios
+              %hr/
+              .botones
+                = link_to "Guardar", "#", onclick: "$('#brigadeForm').submit(); return false;", class: 'btn btn-inverse'
+                = link_to "Cancelar", admin_brigades_path, class: 'btn'
+
+- content_for :js_footer do
+  :javascript
+     $('#brigade_leader_name')
+        .bind( "keydown", function(event) {
+          //alert(event.keyCode);
+          if(event.keyCode === $.ui.keyCode.ENTER && $(this).data("ui-autocomplete").menu.active) {
+            event.preventDefault();
+          } else if (!(event.keyCode === $.ui.keyCode.TAB)){
+            $(this).css("border-color","#D82D2D");
+            $("#brigade_brigade_leader_id").val("");
+          }
+        })
+        .autocomplete({
+          source: "#{admin_responsable_autocomplete_path}",
+          minLength: 1,
+          select: function( event, ui ) {
+            if(ui.item) {
+              $(this).css("border-color","#44db2f");
+              $("#brigade_brigade_leader_id").val(ui.item.id);
+            } else {
+              return false;
+            }
+          }
+        })
+        .blur(function(){
+          if($(this).val() ===""){
+            $(this).css("border-color","#D82D2D");
+            $("#brigade_brigade_leader_id").val("");
+          }
+        });
