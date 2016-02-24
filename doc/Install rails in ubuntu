@@ -111,7 +111,7 @@ sudo dpkg -i mysql-client-core-5.5_5.5.44-0ubuntu0.14.04.1_i386.deb
 sudo dpkg -i mysql-client-5.5_5.5.44-0ubuntu0.14.04.1_i386.deb
 sudo dpkg -i mysql-server-core-5.5_5.5.44-0ubuntu0.14.04.1_i386.deb
 sudo dpkg -i mysql-server-5.5_5.5.44-0ubuntu0.14.04.1_i386.deb
-sudo dpkg -i liberror-perl/liberror-perl_0.17-1.1_all.deb
+sudo dpkg -i liberror-perl_0.17-1.1_all.deb
 sudo dpkg -i git-man_1.9.1-1ubuntu0.1_all.deb
 sudo dpkg -i git_1.9.1-1ubuntu0.1_i386.deb
 sudo dpkg -i libhtml-template-perl_2.95-1_all.deb
