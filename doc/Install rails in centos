@@ -1,0 +1,171 @@
+Instalación de rails con rvm
+----------------------------
+Descargar: curl -sSL https://github.com/rvm/rvm/tarball/stable -o rvm-stable.tar.gz
+mkdir rvm && cd rvm
+tar --strip-components=1 -xzf ../rvm-stable.tar.gz
+./install --auto-dotfiles
+source ~/.rvm/scripts/rvm
+curl -sSLk https://ftp.ruby-lang.org/pub/ruby/ruby-2.1.5.tar.bz2 -o ruby-2.1.5.tar.bz2
+curl -sSL http://pyyaml.org/download/libyaml/yaml-0.1.6.tar.gz -o yaml-0.1.6.tar.gz
+mv ruby-2.1.5.tar.bz2 $rvm_path/archives/
+mv yaml-0.1.6.tar.gz $rvm_path/archives
+-- el siguiente paso es mejor hacerlo en línea dado que depende de la configuración de cada máquina
+-- para correrlo en línea:  "rvm requirements" e instalar los paquetes indicados
+-- Pongo los pasos para los paquetes que me aparecen como faltantes en un centos 7 recien instalado:
+required packages: patch, libyaml-devel, glibc-headers, autoconf, gcc-c++, glibc-devel, patch, readline-devel, zlib-devel, libffi-devel, openssl-devel, bzip2, automake, libtool, bison, sqlite-devel
+------------ PARA GENERAR EL LISTADO DE PAQUETES
+yumdownloader --urls --resolve patch libyaml-devel glibc-headers autoconf gcc-c++ glibc-devel patch readline-devel zlib-devel libffi-devel openssl-devel bzip2 automake libtool bison sqlite-devel | grep http:// > download-list
+------------ FIN PARA GENERAR EL LISTADO DE PAQUETES
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/patch-2.7.1-8.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/libyaml-devel-0.1.4-11.el7_0.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/libyaml-devel-0.1.4-11.el7_0.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/glibc-headers-2.17-78.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/autoconf-2.69-11.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/gcc-c++-4.8.3-9.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/glibc-devel-2.17-78.el7.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/glibc-devel-2.17-78.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/patch-2.7.1-8.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/readline-devel-6.2-9.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/readline-devel-6.2-9.el7.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/zlib-devel-1.2.7-13.el7.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/zlib-devel-1.2.7-13.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/libffi-devel-3.0.13-11.el7.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/libffi-devel-3.0.13-11.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/openssl-devel-1.0.1e-42.el7.9.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/openssl-devel-1.0.1e-42.el7.9.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/bzip2-1.0.6-12.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/automake-1.13.4-3.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/libtool-2.4.2-20.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/bison-2.7-4.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/sqlite-devel-3.7.17-6.el7_1.1.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/sqlite-devel-3.7.17-6.el7_1.1.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-HTTP-Tiny-0.033-3.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Test-Harness-3.28-2.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/libstdc++-devel-4.8.3-9.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/libverto-devel-0.2.5-4.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-File-Temp-0.23.01-3.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/keyutils-libs-1.5.8-3.el7.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/libselinux-devel-2.2.2-6.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/openssl-libs-1.0.1e-42.el7.9.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Data-Dumper-2.145-3.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-macros-5.16.3-285.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-5.16.3-285.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-File-Path-2.09-2.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Socket-2.010-3.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Text-ParseWords-3.29-4.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/libcom_err-devel-1.42.9-7.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/keyutils-libs-devel-1.5.8-3.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/libsepol-devel-2.1.9-3.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Time-HiRes-1.9725-3.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/libcom_err-1.42.9-7.el7.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/libgcc-4.8.3-9.el7.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/krb5-libs-1.12.2-15.el7_1.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/ncurses-devel-5.9-13.20130511.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/libmpc-1.0.1-3.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/libstdc++-4.8.3-9.el7.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Pod-Usage-1.63-3.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/glibc-2.17-78.el7.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Encode-2.51-7.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/xz-libs-5.1.2-9alpha.el7.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-libs-5.16.3-285.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/krb5-libs-1.12.2-15.el7_1.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/openssl-1.0.1e-42.el7.9.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/krb5-devel-1.12.2-15.el7_1.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-threads-shared-1.43-6.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Storable-2.45-3.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/m4-1.4.16-9.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/libverto-0.2.5-4.el7.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Pod-Escapes-1.04-285.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-parent-0.225-244.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/libselinux-2.2.2-6.el7.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/ncurses-libs-5.9-13.20130511.el7.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/pcre-8.32-14.el7.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/readline-6.2-9.el7.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Carp-1.26-244.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/kernel-headers-3.10.0-229.14.1.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/libffi-3.0.13-11.el7.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/zlib-1.2.7-13.el7.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/nss-softokn-freebl-3.16.2.3-13.el7_1.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/libyaml-0.1.4-11.el7_0.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-podlators-2.5.1-3.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/mpfr-3.1.1-4.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Filter-1.49-3.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/krb5-devel-1.12.2-15.el7_1.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/pcre-devel-8.32-14.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-threads-1.87-4.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Exporter-5.68-3.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-constant-1.27-2.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-PathTools-3.40-5.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Thread-Queue-3.02-2.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/cpp-4.8.3-9.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Pod-Simple-3.28-4.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Time-Local-1.2300-2.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Pod-Perldoc-3.20-4.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/sqlite-3.7.17-6.el7_1.1.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/openssl-libs-1.0.1e-42.el7.9.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Scalar-List-Utils-1.27-248.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/gcc-4.8.3-9.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Getopt-Long-2.40-2.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/sqlite-3.7.17-6.el7_1.1.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/nss-softokn-freebl-3.16.2.3-13.el7_1.x86_64.rpm
+
+copiar todos los paquetes en una carpeta
+correr en la carpeta: sudo rpm -Uvh *.rpm
+echo "" > ~/.rvm/gemsets/default.gems
+echo "" > ~/.rvm/gemsets/global.gems
+rvm install 2.1.5 --rubygems 2.4.6
+rvm use 2.1.5 --default
+gem install bundler
+ssh-keygen -t rsa
+en el path - enter
+en la frase - enter
+de nuevo la frase - enter
+agregar la clave publica generada (~/.ssh/id_rsa.pub) a la cuenta de git (https://github.com/settings/ssh)
+
+Instalación de mysql(mariadb)
+--------------------
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/mariadb-server-5.5.44-1.el7_1.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/mariadb-devel-5.5.44-1.el7_1.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/mariadb-devel-5.5.44-1.el7_1.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/mariadb-5.5.44-1.el7_1.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Net-Daemon-0.48-5.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/mariadb-libs-5.5.44-1.el7_1.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/updates/x86_64/Packages/mariadb-libs-5.5.44-1.el7_1.i686.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Compress-Raw-Bzip2-2.061-3.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-PlRPC-0.2020-14.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-DBD-MySQL-4.023-5.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Compress-Raw-Zlib-2.061-4.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-IO-Compress-2.061-2.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-DBI-1.627-4.el7.x86_64.rpm
+--- Toca ejecutar el siguiente comando varias veces si da error por dependencias da error (hasta que instala correctamente las dependencias)
+sudo rpm -Uvh *.rpm
+
+sudo systemctl start  mariadb.service
+/usr/bin/mysqladmin -u root password 'developer'
+
+Instalar un editor (sublime?)
+-----------------------------
+descargar http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202.0.2.tar.bz2
+descomprimir tar xvf Sublime\ Text\ 2.0.2.tar.bz2
+cd Sublime\ Text\ 2
+./sublime_text
+
+Instalar git
+------------
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/git-1.8.3.1-4.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-TermReadKey-2.30-20.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Git-1.8.3.1-4.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/perl-Error-0.17020-2.el7.noarch.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/rsync-3.0.9-15.el7.x86_64.rpm
+http://mirror.uta.edu.ec/centos/7.1.1503/os/x86_64/Packages/libgnome-keyring-3.8.0-3.el7.x86_64.rpm
+
+sudo rpm -Uvh *.rpm
+
+Descargar el código y setear la app
+-----------------------------------
+git clone (el url del proyecto obtenido de git)
+aceptar el agregar el host de github a ssh
+bundle install
+bundle exec rake db:create
+bundle exec rails s
+

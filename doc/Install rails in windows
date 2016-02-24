@@ -1,0 +1,71 @@
+Instalación de rails (ruby 2.1.5p273 (2014-11-13 revision 48405) [i386-mingw32] // Rails 4.1.8)
+--------------------
+Descargar - https://s3.amazonaws.com/railsinstaller/Windows/railsinstaller-3.1.0.exe
+Ejecutar el archivo
+Hacer "next" tantas veces como sea necesario para comenzar a instalar, dejar las opciones por defecto
+Verificar que en la pantalla final de instalación esté chequeada la opción "Configure git and ssh when installation has completed" y finalizar
+Poner el nombre para git
+Poner el correo para git
+agregar la clave publica generada a la cuenta de git (https://github.com/settings/ssh)
+
+Instalación de mysql
+--------------------
+Descargar -- http://dev.mysql.com/get/Downloads/MySQLInstaller/mysql-installer-community-5.6.27.0.msi
+Ejecutar el archivo
+Aceptar el acuerdo de licencia - Siguiente
+Escoger "Developer Default" - Siguiente
+En "Check requirements" poner Siguiente, en la alerta poner "Yes"
+En "Installation" - Execute
+Al terminar de instalar - Siguiente
+En Configuración - Siguiente
+En Tipo y Red - Siguiente
+password de root - developer - Siguiente
+Windows service - Siguiente
+Aplicar configuracion - Execute
+Si aparece alerta que demora mucho - Wait
+Al terminar - Finish
+En Configuración - Siguiente
+En Conectar al servidor - Check y luego Siguiente
+Aplicar configuracion - Execute
+Al terminar - Finish
+En Configuracion - Siguiente
+En Instalacion Completa - Finish
+
+Instalación de certificado SSL
+------------------------------
+Descargar -- https://gist.github.com/raw/867550/win_fetch_cacerts.rb
+Ejecutar -- ruby win_fetch_cacerts.rb
+Ejecutar -- set SSL_CERT_FILE=C:\RailsInstaller\cacert.pem
+
+Si la gema de mysql da error
+----------------------------
+Opcion 1 funciona para la version actual de la gema
+gem install mysql2 --platform=ruby -- '--with-mysql-dir="C:\Program Files\MySQl\MySQL Connector.C 6.1"'
+
+Opcion 2 funciona para la version 0.3.18
+descargar http://dev.mysql.com/get/Downloads/Connector-C/mysql-connector-c-6.1.6-win32.zip
+Extraer en la raiz
+gem install mysql2 -v '0.3.18' --platform=ruby -- '--with-mysql-dir="C:\mysql-connector-c-6.1.6-win32"'
+copy c:\mysql-connector-c-6.1.6-win32\lib\libmysql.dll c:\RailsInstaller\Ruby2.1.0\bin
+
+Instalar un editor (sublime?)
+-----------------------------
+descargar http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202.0.2%20Setup.exe
+ejecutar archivo
+next tantas veces como sea necesario
+finish
+
+Descargar el código y setear la app
+-----------------------------------
+git clone (el url del proyecto obtenido de git)
+aceptar el agregar el host de github a ssh
+correr bundle install
+bundle exec rake db:create
+bundle exec rails s
+
+
+NOTAS
+-----
+La última versión de la gema de mysql da errores, usar la 0.3.18
+Si se quiere usar thin y da error relacionado a EventMachine agregar a config/application.rb luego de "require 'rails/all'", "require 'em/pure_ruby'"
+
