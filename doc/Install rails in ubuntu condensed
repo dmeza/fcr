@@ -1,0 +1,47 @@
+mkdir ~/rvm
+cd ~/rvm
+tar --strip-components=1 -xzf /media/sf_downloads/rvm-stable.tar.gz 
+./install --auto-dotfiles
+source ~/.rvm/scripts/rvm
+cp /media/sf_downloads/ruby-2.1.5.tar.bz2  $rvm_path/archives/
+cp /media/sf_downloads/yaml-0.1.6.tar.gz $rvm_path/archives/
+sudo dpkg -i -R /media/sf_downloads/ubuntu-offline
+echo "" > ~/.rvm/gemsets/default.gems
+echo "" > ~/.rvm/gemsets/global.gems
+rvm requirements
+sudo apt-get -f install
+rvm install 2.1.5 --rubygems 2.4.6
+rvm use 2.1.5 --default
+gem install bundler
+cd /media/sf_downloads/mysql-offline
+sudo dpkg -i libaio1_0.3.109-4_i386.deb
+sudo dpkg -i mysql-common_5.5.44-0ubuntu0.14.04.1_all.deb
+sudo dpkg -i libmysqlclient18_5.5.44-0ubuntu0.14.04.1_i386.deb
+sudo dpkg -i libdbi-perl_1.630-1_i386.deb
+sudo dpkg -i libdbd-mysql-perl_4.025-1_i386.deb
+sudo dpkg -i libterm-readkey-perl_2.31-1_i386.deb
+sudo dpkg -i mysql-client-core-5.5_5.5.44-0ubuntu0.14.04.1_i386.deb
+sudo dpkg -i mysql-client-5.5_5.5.44-0ubuntu0.14.04.1_i386.deb
+sudo dpkg -i mysql-server-core-5.5_5.5.44-0ubuntu0.14.04.1_i386.deb
+sudo dpkg -i mysql-server-5.5_5.5.44-0ubuntu0.14.04.1_i386.deb
+sudo dpkg -i liberror-perl_0.17-1.1_all.deb
+sudo dpkg -i git-man_1.9.1-1ubuntu0.1_all.deb
+sudo dpkg -i git_1.9.1-1ubuntu0.1_i386.deb
+sudo dpkg -i libhtml-template-perl_2.95-1_all.deb
+sudo dpkg -i libmysqlclient-dev_5.5.44-0ubuntu0.14.04.1_i386.deb
+sudo dpkg -i mysql-client_5.5.44-0ubuntu0.14.04.1_all.deb
+sudo dpkg -i mysql-server_5.5.44-0ubuntu0.14.04.1_all.deb
+cd /opt/
+sudo tar xvf /media/sf_downloads/Sublime\ Text\ 2.0.2.tar.bz2 
+sudo chown developer.developer -R Sublime\ Text\ 2
+cd Sublime\ Text\ 2/
+./sublime_text 
+
+mkdir ~/projects
+cd ~/projects
+
+git clone git@github.com:dmeza/fcr.git
+cp config/database.yml.sample config/database.yml
+bundle exec rake db:create
+bundle exec rake db:migrate
+
