@@ -32,7 +32,9 @@ gem 'thin'
 group :development do
   gem 'quiet_assets'
   gem 'capistrano'
-  gem 'rvm-capistrano', require: false
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rvm'
 end
 
 gem 'jquery-rails'

@@ -68,6 +68,15 @@ GEM
       i18n
       rake (>= 10.0.0)
       sshkit (~> 1.3)
+    capistrano-bundler (1.1.4)
+      capistrano (~> 3.1)
+      sshkit (~> 1.2)
+    capistrano-rails (1.1.6)
+      capistrano (~> 3.1)
+      capistrano-bundler (~> 1.1)
+    capistrano-rvm (0.1.2)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.3)
@@ -194,8 +203,6 @@ GEM
     ruby-ole (1.2.11.8)
     ruby-openid (2.3.0)
     rubyzip (1.1.7)
-    rvm-capistrano (1.5.0)
-      capistrano (>= 2.15.4)
     sass (3.2.10)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -243,6 +250,9 @@ DEPENDENCIES
   bootstrap-sass
   bootstrap-will_paginate
   capistrano
+  capistrano-bundler
+  capistrano-rails
+  capistrano-rvm
   coffee-rails (~> 3.2.1)
   jquery-rails
   json
@@ -250,7 +260,6 @@ DEPENDENCIES
   quiet_assets
   rails (= 3.2.3)
   roo
-  rvm-capistrano
   sass (= 3.2.10)
   sass-rails (~> 3.2.3)
   sitebootstrapperv2!
