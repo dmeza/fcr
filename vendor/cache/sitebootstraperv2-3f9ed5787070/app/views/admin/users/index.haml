@@ -1,0 +1,123 @@
+%br/
+#daygraph(style="width:950px;height:150px;")
+%br/
+#sumgraph(style="width:950px;height:150px;")
+:javascript
+  $(function () {
+    $.ajax({
+      url: '/admin/users/chart_data?type=day',
+      method: 'GET',
+      dataType: 'json',
+      success: onDataReceived
+    });
+
+    $.ajax({
+      url: '/admin/users/chart_data?type=sum',
+      method: 'GET',
+      dataType: 'json',
+      success: onDataReceived
+    });
+  });
+
+  // then fetch the data with jQuery
+  function onDataReceived(response) {
+    var data = response.data;
+    var type = response.type;
+
+    var show_points = true;
+    var div = '';
+    var label = '';
+    if(type == 'sum') {
+      show_points = false;
+      div = "#sumgraph";
+      label = 'Total Users';
+    } else if(type == 'day') {
+      show_points = true;
+      div = "#daygraph";
+      label = 'Users per Day';
+    }
+
+    var p = $.plot($(div), [{
+      label: label,
+      data: data,
+      points: { show: show_points },
+      lines: { show: true }
+    }], {
+      xaxis: {
+        mode: "time",
+        timeformat: "%b %d, %y",
+        minTickSize: [1, "day"],
+        tickLength: 5
+      },
+      grid: { hoverable: true, clickable: false }
+    });
+
+    function showTooltip(x, y, contents) {
+      $('<div id="tooltip">' + contents + '</div>').css( {
+        position: 'absolute',
+        display: 'none',
+        top: y - 25,
+        left: x + 15,
+        border: '1px solid #fdd',
+        padding: '2px',
+        color: 'black',
+        'background-color': '#fee',
+        opacity: 0.80
+      }).appendTo("body").fadeIn(200);
+    };
+
+    var previousPoint = null;
+    $(div).bind("plothover", function (event, pos, item) {
+      $("#x").text(pos.x.toFixed(2));
+      $("#y").text(pos.y.toFixed(2));
+
+      if (item) {
+        if (previousPoint != item.dataIndex) {
+          previousPoint = item.dataIndex;
+
+          $("#tooltip").remove();
+          var x = new Date(item.datapoint[0]), y = item.datapoint[1];
+
+          showTooltip(item.pageX, item.pageY, (x.getMonth()+1) + '/' + x.getDate() + '/' + x.getFullYear() + "<br/>Users: "+y);
+        }
+      }
+      else {
+        $("#tooltip").remove();
+        previousPoint = null;
+      }
+    });
+  }
+%br/
+#travel
+  .box
+    .options
+      = page_entries_info @users
+      = will_paginate @users
+      %span{:style => "float:right;"}= link_to 'Export to CSV', to_csv_admin_user_path(0)
+    %table{:width => "100%"}
+      %tr
+        %th Name
+        %th Email
+        %th Create at
+        %th Send email
+        %th Status
+        %th Role
+        %th Login as
+        %th Delete?
+      - @users.each do |user|
+        %tr
+          %td= user.full_name
+          %td= user.email
+          %td= user.created_at.strftime("%Y-%m-%d %H:%M")
+          %td= user.status
+          %td= link_to('resend activation', resend_activation_admin_user_path(user.id), :class => 'resend_activation', :remote => true) if !user.active_for_authentication?
+          %td= (user.is_admin? ? 'Admin' : link_to('make admin', make_admin_admin_user_path(user.id), :confirm => "Are you sure you want to make user: #{user.email} an admin?", :method => :post))
+          %td= link_to "login as", login_as_admin_user_path(user.id)
+          %td= button_to "delete?", admin_user_path(user.id), :confirm => "Are you sure you want to delete user: #{user.email}?", :method => :delete
+      %tr
+        %td{:colspan => "6"}
+      %tr
+        %td{:colspan => "6"}
+          = page_entries_info @users
+          = will_paginate @users
+
