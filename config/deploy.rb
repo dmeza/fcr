@@ -1,62 +1,56 @@
-require 'bundler/capistrano'
-require 'rvm/capistrano'
+# config valid only for current version of Capistrano
+lock '3.4.0'
 
-default_run_options[:pty] = true
-set :application, "ayudandonos"
-set :repository,  "git@github.com:dmeza/voluntarios.git"
+set :application, 'ayudandonos'
+set :repo_url, 'git@github.com:dmeza/fcr.git'
 
-set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
-               # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
-set :rvm_type, :system
-set :use_sudo, false
+# Default branch is :master
+# ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
-set :deploy_to, "/home/ruby/rubyapps/#{application}"
+# Default deploy_to directory is /var/www/my_app_name
+set :deploy_to, ->{ "/home/ruby/rubyapps/#{fetch(:application)}" }
 
-role :web, "192.241.168.104"                          # Your HTTP server, Apache/etc
-role :app, "192.241.168.104"                          # This may be the same as your `Web` server
-role :db,  "192.241.168.104", :primary => true # This is where Rails migrations will run
+# Default value for :scm is :git
+# set :scm, :git
 
-set :user, 'ruby'
-set :rails_env, :production
+# Default value for :format is :pretty
+# set :format, :pretty
 
-ssh_options[:port] = 22
-ssh_options[:forward_agent] = true
+# Default value for :log_level is :debug
+# set :log_level, :debug
+
+# Default value for :pty is false
+# set :pty, true
+
+# Default value for :linked_files is []
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/email_settings.yml')
+
+# Default value for linked_dirs is []
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
+
+# Default value for default_env is {}
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+
+# Default value for keep_releases is 5
+# set :keep_releases, 5
 
 set :deploy_via, :remote_cache
 set :git_shallow_clone, 1
 
-# if you want to clean up old releases on each deploy uncomment this:
-after "deploy:restart", "deploy:cleanup"
-after 'deploy:update_code', "symlink_server_config"
-before "deploy:assets:precompile", "symlink_server_config"
-after "deploy:update_code", 'deploy:migrate'
-
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
-
+set :rvm_type, :system
+set :rvm_ruby_version, '2.1.5@voluntarios'
+set :thin_command, ->{ "exec thin -C /etc/thin/#{fetch(:application)}.yml restart" }
 namespace :deploy do
-  desc 'Start thin servers'
-  task :start, :roles => :app, :except => { :no_release => true } do
-    run "cd #{current_path} && RUBY_GC_MALLOC_LIMIT=90000000 bundle exec thin -C /etc/thin/ayudandonos.yml start", :pty => false
+
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      within release_path do
+        execute :bundle, fetch(:thin_command)
+      end
+    end
   end
 
-  desc 'Stop thin servers'
-  task :stop, :roles => :app, :except => { :no_release => true } do
-    run "cd #{current_path} && bundle exec thin -C /etc/thin/ayudandonos.yml stop"
-  end
-
-  desc 'Restart thin servers'
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "cd #{current_path} && RUBY_GC_MALLOC_LIMIT=90000000 bundle exec thin -C /etc/thin/ayudandonos.yml restart"
-  end
-end
-
-namespace :assets do
+  after :publishing, :restart
 
 end
-
-task :symlink_server_config do
-  run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-  run "ln -nfs #{shared_path}/config/email_settings.yml #{release_path}/config/email_settings.yml"
-end
-

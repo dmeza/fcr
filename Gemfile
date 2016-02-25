@@ -31,7 +31,7 @@ gem 'thin'
 
 group :development do
   gem 'quiet_assets'
-  gem 'capistrano', '2.15.5'
+  gem 'capistrano'
   gem 'rvm-capistrano', require: false
 end
 
