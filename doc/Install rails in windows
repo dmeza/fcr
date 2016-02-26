@@ -37,6 +37,8 @@ Descargar -- https://gist.github.com/raw/867550/win_fetch_cacerts.rb
 Ejecutar -- ruby win_fetch_cacerts.rb
 Ejecutar -- set SSL_CERT_FILE=C:\RailsInstaller\cacert.pem
 
+Si no funciona, solo copiar cacert.pem en C:\RailsInstaller
+
 Si la gema de mysql da error
 ----------------------------
 Opcion 1 funciona para la version actual de la gema
@@ -68,4 +70,17 @@ NOTAS
 -----
 La última versión de la gema de mysql da errores, usar la 0.3.18
 Si se quiere usar thin y da error relacionado a EventMachine agregar a config/application.rb luego de "require 'rails/all'", "require 'em/pure_ruby'"
+
+
+Si no funciona bcrypt:
+-----------------------
+c:\RailsInstaller\DevKit>devkitvars.bat
+Adding the DevKit to PATH...
+
+c:\RailsInstaller>cd Ruby2.1.0\lib\ruby\gems\2.1.0\gems\bcrypt-ruby-3.1.2-x86-mingw32\ext\mri
+
+c:\RailsInstaller\Ruby2.1.0\lib\ruby\gems\2.1.0\gems\bcrypt-ruby-3.1.2-x86-mingw32\ext\mri>ruby extconf.rb
+
+make
+make install
 
