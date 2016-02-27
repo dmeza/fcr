@@ -21,6 +21,7 @@ class Event < ActiveRecord::Base
   belongs_to :area
   belongs_to :event_type
   belongs_to :brigade
+  has_many :event_histories, dependent: :destroy
 
   validates_presence_of :name, :spaces, :responsable_id ,:event_type, 
                         :event_date, :state, :place, :activation_date
