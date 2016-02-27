@@ -15,13 +15,14 @@ GIT
       will_paginate
 
 GIT
-  remote: git@github.com:randym/axlsx.git
-  revision: c24ec92ab6495b6b0c36e8e139d3d3ce350fc5c5
+  remote: https://github.com/randym/axlsx.git
+  revision: b52661c707c5ee812d71a9fc569fdf8f8c8ecfa5
   specs:
-    axlsx (2.0.1)
-      htmlentities (~> 4.3.1)
-      nokogiri (>= 1.4.1)
-      rubyzip (~> 1.1.1)
+    axlsx (2.1.0.pre)
+      htmlentities (~> 4.3.4)
+      mimemagic (~> 0.3)
+      nokogiri (>= 1.6.6)
+      rubyzip (~> 1.1.7)
 
 GEM
   remote: https://rubygems.org/
@@ -103,7 +104,7 @@ GEM
       tilt
     hashie (2.0.5)
     hike (1.2.3)
-    htmlentities (4.3.3)
+    htmlentities (4.3.4)
     httpauth (0.2.0)
     i18n (0.6.9)
     journey (1.0.4)
@@ -119,6 +120,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
+    mimemagic (0.3.1)
     mini_portile (0.6.2)
     multi_json (1.8.2)
     multipart-post (1.2.0)
