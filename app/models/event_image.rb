@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class EventImage < ActiveRecord::Base
 
-  attr_accessible :image
+  #attr_accessible :image
   belongs_to :event
 
   #Load Image

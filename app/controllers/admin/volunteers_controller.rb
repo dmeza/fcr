@@ -13,7 +13,7 @@ class Admin::VolunteersController < Admin::AdminController
 
   def update
     @volunteer = User.find(params[:id])
-    @volunteer.attributes = params[:user]
+    @volunteer.attributes = volunteer_params # params[:user]
     if @volunteer.save
       flash[:notice] = "Voluntario #{@volunteer.name} guardado"
       redirect_to admin_volunteers_path and return
@@ -79,8 +79,11 @@ class Admin::VolunteersController < Admin::AdminController
 
   private
   
+    def set_menu
+      @selected_menu = 'Volunteers'
+    end
 
-  def set_menu
-    @selected_menu = 'Volunteers'
-  end
+    def volunteer_params
+      params.require(:user).permit(:tos, :has_induction, :birth_date, :indentifier, :contact_me, :has_institution_induction, :mobile, :motivation, :brigade, :brigade_id, :city_id, :city)
+    end
 end

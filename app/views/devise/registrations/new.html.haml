@@ -42,7 +42,7 @@
             .form-group
               = f.label 'Ciudad *', for: "city_id"
               %br/
-              = f.select :city_id, options_from_collection_for_select(City.all, :id, :name), class: "form-control"
+              = f.select :city_id, options_from_collection_for_select(City.all, :id, :name), {}, {class: "form-control"}
         %br/
         .row
           .col-lg-12
@@ -95,7 +95,7 @@
             %p
               = f.label '' do
                 ¿Ya recibió la
-                = link_to_function 'inducción', '', title: 'Inducción es una clase de preparación para que los voluntarios puedan participar de mejor manera en los eventos. Es requerida para poder participar en eventos.'
+                = link_to 'inducción', '#', title: 'Inducción es una clase de preparación para que los voluntarios puedan participar de mejor manera en los eventos. Es requerida para poder participar en eventos.'
                 en alguna institución?
               = f.check_box :has_institution_induction, style: 'margin-top: -5px;'
             %br/

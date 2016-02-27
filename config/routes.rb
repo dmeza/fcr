@@ -1,36 +1,51 @@
- Voluntarios::Application.routes.draw do
+Rails.application.routes.draw do
+
+  root :to => "home#index"
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  get '/fb_channel' => 'home#fb_channel', :as => 'fb_channel'
 
   get "info/historianew"
 
-  match 'info/' => "info#index", as: :info
+  get 'info/' => "info#index", as: :info
 
-  match 'event/:id' => 'events#show', as: :event
-  match 'event/:id/logged' => 'events#logged', as: :logged
-  match 'join/:id' => 'events#join', as: :join
+  get 'event/:id' => 'events#show', as: :event
+  get 'event/:id/logged' => 'events#logged', as: :logged
+  get 'join/:id' => 'events#join', as: :join
 
-  match 'calendar' => 'home#calendar', as: :calendar
+  get 'calendar' => 'home#calendar', as: :calendar
 
-  match 'event/entry_list/:id' => 'admin/events#entry_list', as: :entry_list
+  get 'event/entry_list/:id' => 'admin/events#entry_list', as: :entry_list
 
   # match 'event/entry_list_csv/:id' => 'admin/events#entry_list_to_csv', as: :entry_list_to_csv
-  match 'event/entry_list_to_xlsx/:id' => 'admin/events#entry_list_to_xlsx', as: :entry_list_to_xlsx
+  get 'event/entry_list_to_xlsx/:id' => 'admin/events#entry_list_to_xlsx', as: :entry_list_to_xlsx
 
-  match 'info/send_mail' => 'info#send_mail', as: :info_send_mail
+  get 'info/send_mail' => 'info#send_mail', as: :info_send_mail
   
   get 'responsable_autocomplete' => 'events#responsable_autocomplete'
 
   # Brigade Leader routes
-  match 'brigades/dashboard' => 'brigades#dashboard', as: :brigades_dash
-  match 'brigades/brigades' => 'brigades#index', as: :brigades_index
-  match 'brigades/:id/view_event' => 'brigades#view_event', as: :view_event
-  match 'brigades/:id/view_brigade' => 'brigades#view_brigade', as: :view_brigade
-  match 'brigades/:id/add_brigadist' => 'brigades#add_brigadist', as: :add_brigadist
-  match 'brigades/:id/remove_brigadist' => 'brigades#remove_brigadist', as: :remove_brigadist
-  match 'admin/volunteers/volunteer_filter' => 'admin/volunteers#volunteer_filter', as: :volunteer_filter
-  match 'admin/events/events_filter' => 'admin/events#events_filter', as: :events_filter
-  match 'admin/users/users_filter' => 'admin/users#users_filter', as: :users_filter
+  get 'brigades/dashboard' => 'brigades#dashboard', as: :brigades_dash
+  get 'brigades/brigades' => 'brigades#index', as: :brigades_index
+  get 'brigades/:id/view_event' => 'brigades#view_event', as: :view_event
+  get 'brigades/:id/view_brigade' => 'brigades#view_brigade', as: :view_brigade
+  post 'brigades/:id/add_brigadist' => 'brigades#add_brigadist', as: :add_brigadist
+  post 'brigades/:id/remove_brigadist' => 'brigades#remove_brigadist', as: :remove_brigadist
+  get 'admin/volunteers/volunteer_filter' => 'admin/volunteers#volunteer_filter', as: :volunteer_filter
+  get 'admin/events/events_filter' => 'admin/events#events_filter', as: :events_filter
+  get 'admin/users/users_filter' => 'admin/users#users_filter', as: :users_filter
   namespace :admin do
     resource :dash
+
+    resources :users do
+      member do
+        get :login_as, :resend_activation, :to_csv
+        post :make_admin
+      end
+      collection do
+        get :chart_data
+      end
+    end
+
     resources :volunteers do
       member do
         post :activate
@@ -50,7 +65,8 @@
     get 'responsable_autocomplete' => 'events#responsable_autocomplete'
   end
 
-  
+
+  get '/return_to_admin' => 'home#return_to_admin', :as => :return_to_admin
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
