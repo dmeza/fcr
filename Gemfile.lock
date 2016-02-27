@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:randym/axlsx.git
+  remote: https://github.com/randym/axlsx.git
   revision: b52661c707c5ee812d71a9fc569fdf8f8c8ecfa5
   specs:
     axlsx (2.1.0.pre)
@@ -298,3 +298,6 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
   will_paginate
+
+BUNDLED WITH
+   1.11.2
