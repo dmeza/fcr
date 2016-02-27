@@ -6,14 +6,12 @@ class Event < ActiveRecord::Base
 
   EVENT_TYPES = ['Inducción', 'Voluntariado']
   EVENT_STATES = ['Activo', 'Inactivo']
-
+=begin
   attr_accessible :name, :description, :spaces, :used, :event_type, 
                   :event_type_id, :event_date, :state, :place,  
                   :responsable_id, :city_id, :city, :requires_adult, 
                   :area, :area_id, :role, :activation_date, :brigade_id
-  validates_presence_of :name, :spaces, :responsable_id ,:event_type, 
-                        :event_date, :state, :place, :activation_date
-  validates_presence_of :spaces, if: Proc.new {|e| e.event_type.has_limit }
+=end
 
   has_many :events_users, dependent: :destroy
   has_many :users, through: :events_users
@@ -24,18 +22,22 @@ class Event < ActiveRecord::Base
   belongs_to :event_type
   belongs_to :brigade
 
+  validates_presence_of :name, :spaces, :responsable_id ,:event_type, 
+                        :event_date, :state, :place, :activation_date
+  validates_presence_of :spaces, if: Proc.new {|e| e.event_type.has_limit }
+
   delegate :name, :email, to: :responsable, prefix: true, allow_nil: true
 
-  scope :active, where("state = '#{EVENT_STATES[0]}'")
-  scope :future, where("event_date >= '#{DateTime.now}'").order('event_date asc')
-  scope :city, lambda {|city_id| {conditions: ["city_id = :city_id", city_id: city_id] }}
-  scope :before, lambda {|end_time| {conditions: ["event_date < :event_date", event_date: Event.format_date(end_time)] }}
-  scope :after, lambda {|start_time| {conditions: ["event_date > :event_date", event_date: Event.format_date(start_time)] }}
+  scope :active, -> { where("state = '#{EVENT_STATES[0]}'") }
+  scope :future, -> { where("event_date >= '#{DateTime.now}'").order('event_date asc') }
+  scope :city, ->(city_id) { where("city_id = :city_id", city_id: city_id) }
+  scope :before, ->(end_time) { where("event_date < :event_date", event_date: Event.format_date(end_time)) }
+  scope :after, ->(start_time) { where("event_date > :event_date", event_date: Event.format_date(start_time)) }
 
 
   #scopes
   def self.induction(city_id)
-    includes("event_type").where("event_types.is_inception = 1 and events.city_id = ?", city_id)
+    includes("event_type").where("event_types.is_inception = 1 and events.city_id = ?", city_id).references(:event_type)
   end
 
   def is_active?

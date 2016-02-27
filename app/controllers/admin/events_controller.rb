@@ -13,7 +13,7 @@ class Admin::EventsController < Admin::AdminController
   end
 
   def create
-    @event = Event.new(params[:event])
+    @event = Event.new(event_params) # params[:event])
     if @event.event_date
       @event.event_date = DateTime.new(@event.event_date.year, @event.event_date.month, @event.event_date.day, params[:event_date_hour].to_i, params[:event_date_minute].to_i, 0, 0)
       @event.end_time = Time.new(@event.event_date.year, @event.event_date.month, @event.event_date.day, params[:event_end_time_hour].to_i, params[:event_end_time_minute].to_i, 0, 0)
@@ -49,7 +49,7 @@ class Admin::EventsController < Admin::AdminController
 
   def update
     @event = Event.find(params[:id])
-    @event.attributes = params[:event]
+    @event.attributes = event_params # params[:event]
     if @event.event_date
       @event.event_date = DateTime.new(@event.event_date.year, @event.event_date.month, @event.event_date.day, params[:event_date_hour].to_i, params[:event_date_minute].to_i, 0, 0)
       @event.end_time = Time.new(@event.event_date.year, @event.event_date.month, @event.event_date.day, params[:event_end_time_hour].to_i, params[:event_end_time_minute].to_i, 0, 0)
@@ -160,6 +160,13 @@ class Admin::EventsController < Admin::AdminController
 
   def set_menu
     @selected_menu = 'Events'
+  end
+
+  def event_params
+    params.require(:event).permit(:name, :description, :spaces, :used, :event_type, 
+                  :event_type_id, :event_date, :state, :place,  
+                  :responsable_id, :city_id, :city, :requires_adult, 
+                  :area, :area_id, :role, :activation_date, :brigade_id)
   end
 
 end

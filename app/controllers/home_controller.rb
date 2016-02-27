@@ -1,4 +1,4 @@
-require Sitebootstrapperv2::Engine.root.join('app', 'controllers', 'home_controller')
+#require Sitebootstrapperv2::Engine.root.join('app', 'controllers', 'home_controller')
 class HomeController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :calendar]
 
@@ -20,5 +20,20 @@ class HomeController < ApplicationController
       format.html # index.html.erb
       format.js  { render json: @events }
     end
+  end
+
+  def fb_channel
+    response.headers["Expires"] = CGI.rfc1123_date(Time.now + 365.days)
+    render :text => '<script src="//connect.facebook.net/en_US/all.js"></script>'
+  end
+
+  def return_to_admin
+    user_admin = User.find(session["admin_user_id"])
+    if(user_admin)
+      sign_in(:user, user_admin)
+      session["admin_user_id"] = nil
+      redirect_to admin_users_path and return
+    end
+    redirect_to root_path
   end
 end
