@@ -1,0 +1,97 @@
+.container.admin
+  = render 'shared/navigation_admin'
+  .row
+    .col-lg-12
+      .chart
+        %h3.module_header
+          Niños
+          %span.count
+            #{@children.count}
+          =# link_to 'Exportar a CSV', to_csv_admin_children_path, style: "float:right;", class: 'btn btn-default'
+          = link_to 'Exportar a Excel', to_xlsx_admin_children_path(format: :xlsx), style: "margin-right:10px;", class: 'btn btn-xs btn-primary pull-right'
+    .col-lg-12
+      .well
+        .row
+          .col-lg-5
+          .col-lg-2
+            Busqueda:
+            %br
+          .col-lg-5
+        .row        
+        .row
+          = form_tag child_filter_path, method: 'get', remote: true do
+            .col-lg-2
+            .col-lg-3
+              .row
+                .col-lg-12.pull-left
+                  .input-group.input-group-sm
+                    %label Nombre:
+                    = text_field_tag :child_name, '', class: 'form-control', placeholder: "Nombre"
+              .row     
+                .col-lg-12.pull-left
+                  .input-group.input-group-sm
+                    %label Sueño:
+                    = text_field_tag :child_dream, '', class: 'form-control', placeholder: "Sueño"
+              
+            .col-lg-2
+              .row
+                .col-md-10.pull-left
+                  .input-group.input-group-sm
+                    Hospital:
+                    = select_tag :hospital_id, options_from_collection_for_select(Hospital.all, :id, :name), {include_blank: true} 
+              .row 
+                .col-md-10.pull-left
+                  .input-group.input-group-sm
+                    Estado:
+                    = select_tag :child_status_id, options_from_collection_for_select(ChildStatus.all, :id, :name), {include_blank: true} 
+                    
+            .col-lg-2
+              .row
+                .col-md-10.pull-left
+                  .input-group.input-group-sm
+                    Diagnóstico:
+                    = select_tag :diagnostic_id, options_from_collection_for_select(Diagnostic.all, :id, :name), {include_blank: true} 
+              .row
+                .col-md-10.pull-left
+                  .input-group.input-group-sm
+                    Ciudad:
+                    = select_tag :city_id, options_from_collection_for_select(City.all, :id, :name), {include_blank: true} 
+               
+            .col-md-1.pull-right
+              %button.btn.btn-succes{type: "submit", value: "Search",style:"margin-top:15px"}
+                %i.glyphicon.glyphicon-search
+            .col-md-1
+            .col-md-1
+        %br
+        .report-content
+          = render 'children'        
+
+        
+- content_for :js_footer do
+  :javascript
+    $(function() {
+      $('input.datepicker').datepicker({
+        dateFormat: "yy-mm-dd",
+        changeMonth: true,
+        changeYear: true,
+        minDate: '-12M',
+        maxDate: "0"
+      });
+      $('#voluntary_name').autocomplete({
+        source: "#{admin_responsable_autocomplete_path}",
+        minLength: 1,
+        select: function( event, ui ) {
+          $(this).css("border-color","#9FF781");
+          if(ui.item) {
+            $("#voluntary_id").val(ui.item.id);
+          } else {
+            return false;
+          }
+        }
+      }).blur(function() {
+        if($(this).val() === ""){
+          $(this).css("border-color","#fff");
+          $("#voluntary_id").val("");
+        }
+      });
+    });
