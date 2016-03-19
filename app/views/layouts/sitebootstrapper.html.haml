@@ -7,7 +7,7 @@
     %meta{content: "index, follow", name: "robots"}/
     %meta{charset: 'utf-8'}
     %link{href: "/favicon.ico", rel: "shortcut icon"}/
-    = stylesheet_link_tag "sitebootstrapper", "application"
+    = stylesheet_link_tag "application"
     = yield :css_content
     = csrf_meta_tag
 
@@ -38,7 +38,7 @@
 
 
     / JS files
-    = javascript_include_tag "application", "sitebootstrapper"
+    = javascript_include_tag "application"
 
     - if !flash.empty?
       -# flash messages

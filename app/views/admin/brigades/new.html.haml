@@ -19,16 +19,16 @@
                 .col-lg-3
                   %span Tipo de Evento *
                 .col-lg-9
-                  = f.select :program_id, options_from_collection_for_select(Program.all, :id, :name, @brigade.program_id)
+                  = f.select :program_id, options_from_collection_for_select(Program.all, :id, :name, @brigade.program_id), {}, {class: 'form-control'}
             %li
               .row
                 .col-lg-3
                   %span Nombre *
                 .col-lg-9
-                  = f.text_field :name, size: '150', maxlenght: '150'
+                  = f.text_field :name, class: 'form-control', size: '150', maxlenght: '150'
             %li
               %i{style: 'font-size: 12px;'} Los campos marcados con * son obligatorios
               %hr/
               .botones
-                = link_to "Guardar", "#", onclick: "$('#brigadeForm').submit(); return false;", class: 'btn btn-inverse'
-                = link_to "Cancelar", admin_brigades_path, class: 'btn'
+                = link_to "Guardar", "#", onclick: "$('#brigadeForm').submit(); return false;", class: 'btn btn-primary btn-inverse'
+                = link_to "Cancelar", admin_brigades_path, class: 'btn btn-default'

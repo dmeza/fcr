@@ -19,73 +19,73 @@
                 .col-lg-3
                   %span Nombre *
                 .col-lg-9
-                  = f.text_field :first_name, size: '150', maxlenght: '150'
+                  = f.text_field :first_name, class: 'form-control', size: '150', maxlenght: '150'
             %li
               .row
                 .col-lg-3
                   %span Apellido *
                 .col-lg-9
-                  = f.text_field :last_name, size: '150', maxlenght: '150'
+                  = f.text_field :last_name, class: 'form-control', size: '150', maxlenght: '150'
             %li
               .row
                 .col-lg-3
                   %span Email *
                 .col-lg-9
-                  = f.text_field :email, size: '150', maxlenght: '150'
+                  = f.text_field :email, class: 'form-control', size: '150', maxlenght: '150'
             %li
               .row
                 .col-lg-3
                   %span Documento de identidad *
                 .col-lg-9
-                  = f.text_field :indentifier, size: '150', maxlenght: '150'
+                  = f.text_field :indentifier, class: 'form-control', size: '150', maxlenght: '150'
             %li
               .row
                 .col-lg-3
                   %span Ciudad *
                 .col-lg-9
-                  = f.select :city_id, options_from_collection_for_select(City.all, :id, :name, @volunteer.city_id)
+                  = f.select :city_id, options_from_collection_for_select(City.all, :id, :name, @volunteer.city_id), {}, {class: 'form-control'}
             %li
               .row
                 .col-lg-3
                   %span Teléfono casa *
                 .col-lg-9
-                  = f.text_field :phone, size: '150', maxlenght: '150'
+                  = f.text_field :phone, class: 'form-control', size: '150', maxlenght: '150'
             %li
               .row
                 .col-lg-3
                   %span Celular *
                 .col-lg-9
-                  = f.text_field :mobile, size: '150', maxlenght: '150'
+                  = f.text_field :mobile, class: 'form-control', size: '150', maxlenght: '150'
 
             %li
               .row
                 .col-lg-3
                   %span Fecha de nacimiento *
                 .col-lg-9
-                  = f.text_field :birth_date, size: '5', maxlenght: '5', value: (@volunteer.birth_date ? @volunteer.birth_date.strftime("%d/%m/%Y") : ''), class: 'datepicker', style: 'padding: 15px;'
+                  = f.text_field :birth_date, size: '5', maxlenght: '5', value: (@volunteer.birth_date ? @volunteer.birth_date.strftime("%d/%m/%Y") : ''), class: 'form-control datepicker', style: 'padding: 15px;'
 
             %li
               .row
                 .col-lg-3
                   %span Motivación para ser voluntario
                 .col-lg-9
-                  = f.text_area :motivation, style: "width: 90%; height: 64px; padding: 5px;"
+                  = f.text_area :motivation, class: 'form-control', style: "width: 90%; height: 64px; padding: 5px;"
 
             %li
               .row
                 .col-lg-3
                   %span Pertenece a brigada?
                 .col-lg-9
-                  = f.select :brigade_id, options_from_collection_for_select(Brigade.all, :id, :name, @volunteer.brigade_id), {include_blank: true}
+                  = f.select :brigade_id, options_from_collection_for_select(Brigade.all, :id, :name, @volunteer.brigade_id), {include_blank: true}, {class: 'form-control'}
 
             %li
               %i{style: 'font-size: 12px;'} Los campos marcados con * son obligatorios
               %hr/
               .botones
-                = link_to "Guardar", "#", onclick: "$('#volunteerForm').submit(); return false;", class: 'btn btn-inverse'
-                = link_to "Cancelar", admin_volunteers_path, class: 'btn'
+                = link_to "Guardar", "#", onclick: "$('#volunteerForm').submit(); return false;", class: 'btn btn-primary btn-inverse'
+                = link_to "Cancelar", admin_volunteers_path, class: 'btn btn-default'
                 - unless @volunteer.new_record?
-                  = link_to "Borrar", admin_volunteer_path(@volunteer.id), class: 'btn', confirm: "Esta seguro que desea borrar al voluntario:#{@volunteer.name}?", method: 'delete'
+                  = link_to "Borrar", admin_volunteer_path(@volunteer.id), class: 'btn btn-default', confirm: "Esta seguro que desea borrar al voluntario:#{@volunteer.name}?", method: 'delete'
 
 - years_ago_18 = 18.years.ago
 - content_for :js_footer do

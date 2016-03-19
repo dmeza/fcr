@@ -18,31 +18,31 @@
                 .col-lg-3
                   %span Tipo de Evento *
                 .col-lg-9
-                  = f.select :event_type_id, options_from_collection_for_select(EventType.all, :id, :name, @event.event_type_id)
+                  = f.select :event_type_id, options_from_collection_for_select(EventType.all, :id, :name, @event.event_type_id), {}, {class: "form-control"}
             %li
               .row
                 .col-lg-3
                   %span Ciudad *
                 .col-lg-9
-                  = f.select :city_id, options_from_collection_for_select(City.all, :id, :name, @event.city_id)
+                  = f.select :city_id, options_from_collection_for_select(City.all, :id, :name, @event.city_id), {}, {class: "form-control"}
             %li
               .row
                 .col-lg-3
                   %span Área *
                 .col-lg-9
-                  = f.select :area_id, options_from_collection_for_select(Area.all, :id, :name, @event.area_id)
+                  = f.select :area_id, options_from_collection_for_select(Area.all, :id, :name, @event.area_id), {}, {class: "form-control"}
             %li
               .row
                 .col-lg-3
                   %span Nombre *
                 .col-lg-9
-                  = f.text_field :name, size: '150', maxlenght: '150'
+                  = f.text_field :name, size: '150', maxlenght: '150', class: "form-control"
             %li
               .row
                 .col-lg-3
                   %span Lugar *
                 .col-lg-9
-                  = f.text_field :place, size: '250', maxlenght: '250'
+                  = f.text_field :place, size: '250', maxlenght: '250', class: "form-control"
 
             %li
               .row
@@ -84,14 +84,14 @@
                 .col-lg-3
                   %span Rol *
                 .col-lg-9
-                  = f.text_field :role, size: '250', maxlenght: '250'
+                  = f.text_field :role, class: "form-control", size: '250', maxlenght: '250'
 
             %li
               .row
                 .col-lg-3
                   %span Espacios disponibles *
                 .col-lg-9
-                  = f.select :spaces, options_for_select((0..50), @event.spaces), {}, {style: "#{('display: none;' if @event.new_record? || !@event.event_type.has_limit)}"}
+                  = f.select :spaces, options_for_select((0..50), @event.spaces), {}, {class: "form-control", style: "#{('display: none;' if @event.new_record? || !@event.event_type.has_limit)}"}
                   %span#unlimited_text{style: ('display: none;' if !@event.new_record? && @event.event_type.has_limit)} Ilimitado
 
             %li
@@ -99,7 +99,7 @@
                 .col-lg-3
                   %span Brigada
                 .col-lg-9
-                  = f.select :brigade_id, options_from_collection_for_select(Brigade.all, :id, :name, @event.brigade_id), include_blank: true
+                  = f.select :brigade_id, options_from_collection_for_select(Brigade.all, :id, :name, @event.brigade_id), {include_blank: true}, {class: "form-control"}
 
             %li
               .row
@@ -107,7 +107,7 @@
                   %span Responsable *
                 .col-lg-9
                   = f.hidden_field :responsable_id
-                  = text_field_tag :responsable_name, @event.responsable_name, size: '150', maxlenght: '150'
+                  = text_field_tag :responsable_name, @event.responsable_name, class: "form-control", size: '150', maxlenght: '150'
 
       .col-lg-6
         .chart
@@ -118,7 +118,7 @@
                   .col-lg-3
                     %span Descripci&oacute;n:
                   .col-lg-9
-                    = f.text_area :description, size: '10x5', style: 'width: 100%;', maxlength: '255'
+                    = f.text_area :description, class: "form-control", size: '10x5', style: 'width: 100%;', maxlength: '255'
               
               %li
                 .row
@@ -132,16 +132,16 @@
                   .col-lg-3
                     %span Estado *
                   .col-lg-9
-                    = f.select :state, options_for_select(Event::EVENT_STATES, @event.state)
+                    = f.select :state, options_for_select(Event::EVENT_STATES, @event.state), {}, {class: "form-control"}
               
               %li
                 %i{style: 'font-size: 12px;'} Los campos marcados con * son obligatorios
                 %hr/
                 .botones
-                  = link_to "Guardar", "#", onclick: "$('#eventForm').submit(); return false;", class: 'btn btn-inverse'
-                  = link_to "Cancelar", admin_events_path, class: 'btn'
+                  = link_to "Guardar", "#", onclick: "$('#eventForm').submit(); return false;", class: 'btn btn-primary btn-inverse'
+                  = link_to "Cancelar", admin_events_path, class: 'btn btn-default'
                   - unless @event.new_record?
-                    = link_to "Borrar", admin_event_path(@event.id), class: 'btn', confirm: "Esta seguro que desea borrar el evento:#{@event.name}?", method: 'delete'
+                    = link_to "Borrar", admin_event_path(@event.id), class: 'btn btn-default', confirm: "Esta seguro que desea borrar el evento:#{@event.name}?", method: 'delete'
 
 
 

@@ -7,7 +7,7 @@
           Voluntarios
           %span.count
             #{@volunteers.count}
-          =# link_to 'Exportar a CSV', to_csv_admin_volunteers_path, style: "float:right;", class: 'btn'
+          =# link_to 'Exportar a CSV', to_csv_admin_volunteers_path, style: "float:right;", class: 'btn btn-default'
           = link_to 'Exportar a Excel', to_xlsx_admin_volunteers_path(format: :xlsx), style: "margin-right:10px;", class: 'btn btn-xs btn-primary pull-right'
     .col-lg-12
       .well

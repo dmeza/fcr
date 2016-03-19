@@ -14,7 +14,7 @@ class Admin::BrigadesController < Admin::AdminController
   end
 
   def create
-    @brigade = Brigade.new(params[:brigade])
+    @brigade = Brigade.new(brigade_params) # params[:brigade])
     if @brigade.save
       flash[:notice] = "Brigada #{@brigade.name} guardada"
       redirect_to admin_brigades_path and return
@@ -32,7 +32,7 @@ class Admin::BrigadesController < Admin::AdminController
 
   def update
     @brigade = Brigade.find(params[:id])
-    @brigade.attributes = params[:brigade]
+    @brigade.attributes = brigade_params # params[:brigade]
     if @brigade.save
       flash[:notice] = "Brigada #{@brigade.name} guardada"
       redirect_to admin_brigades_path and return
@@ -46,6 +46,10 @@ class Admin::BrigadesController < Admin::AdminController
 
   def set_menu
     @selected_menu = 'Brigades'
+  end
+
+  def brigade_params
+    params.require(:brigade).permit(:name, :program, :program_id, :brigade_leader_id)
   end
 
 end

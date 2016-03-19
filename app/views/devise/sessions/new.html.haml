@@ -9,16 +9,16 @@
     .col-lg-4
       
       = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-        %div
+        .form-group
           = f.label :email
           %br/
-          = f.email_field :email, style: 'height: 32px; padding: 5px;'
-        %div
+          = f.email_field :email, class: "form-control", style: 'height: 32px; padding: 5px;'
+        .form-group
           = f.label 'Contraseña'
           %br/
-          = f.password_field :password, style: 'height: 32px; padding: 5px;'
+          = f.password_field :password, class: "form-control", style: 'height: 32px; padding: 5px;'
         - if devise_mapping.rememberable?
-          %div{style: 'font-size: 0.7em;'}
+          .form-group{style: 'font-size: 0.7em;'}
             = f.check_box :remember_me, style: 'margin-top: -5px;'
             = f.label 'Recordarme'
         %br/

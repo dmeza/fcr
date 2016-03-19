@@ -1,10 +1,15 @@
-require Sitebootstrapperv2::Engine.root.join('app', 'models', 'user')
+#require Sitebootstrapperv2::Engine.root.join('app', 'models', 'user')
 class User < ActiveRecord::Base
 
-  devise :token_authenticatable
- 
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable, #:token_authenticatable,
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable, omniauth_providers: [:twitter, :facebook, :google_oauth2]
 
-  attr_accessible :tos, :has_induction, :birth_date, :indentifier, :contact_me, :has_institution_induction, :mobile, :motivation, :brigade, :brigade_id, :city_id, :city
+
+  has_many :authentications, dependent: :destroy
+
+  # attr_accessible :tos, :has_induction, :birth_date, :indentifier, :contact_me, :has_institution_induction, :mobile, :motivation, :brigade, :brigade_id, :city_id, :city
 
   validates_acceptance_of :tos, :message => 'deben ser aceptados'
   validates_presence_of :birth_date, :phone
@@ -16,15 +21,62 @@ class User < ActiveRecord::Base
   
   belongs_to :brigade
   belongs_to :city
+
+  before_create :set_first_admin
+
   has_attached_file :photo, {
-      :url => "/system/:class/:attachment/:id/:style_:basename.:extension",
-      :path => ":rails_root/public/system/:class/:attachment/:id/:style_:basename.:extension",
-      :styles => {
-          :thumbnail => "60x60>",
-          :original => "250x250>"
+      url: "/system/:class/:attachment/:id/:style_:basename.:extension",
+      path: ":rails_root/public/system/:class/:attachment/:id/:style_:basename.:extension",
+      styles: {
+          thumbnail: "60x60>",
+          original: "250x250>"
       },
-      :default_url => "/assets/default_user.png"
+      default_url: "/assets/default_user.png"
   }
+  validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
+  
+
+  def status
+    active_for_authentication? ? 'active' : 'pending'
+  end
+
+  def full_name
+    return "#{first_name} #{last_name}" if !first_name.blank? and !last_name.blank?
+    return first_name if !first_name.blank?
+    return last_name if !last_name.blank?
+    return email if email
+    ''
+  end
+
+  def password_required?
+    (authentications.empty? && !persisted?) || !password.nil? || !password_confirmation.nil?
+  end
+
+  def email_required?
+    authentications.empty?
+  end
+
+  def set_photo_from_url(image_url)
+    if !image_url.blank? || self.photo_file_name.blank? || self.photo_file_name == 'default_user.png'
+      begin
+        io = open(URI.parse(image_url))
+        def io.original_filename; base_uri.path.split('/').last end
+        if !io.original_filename.blank?
+          self.photo = io
+        end
+      rescue Exception => ex
+        logger.error("ERROR ERROR ERROR ::: #{ex.message}")
+      end
+    end
+  end
+
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.omniauth"]
+        user.apply_omniauth(data)
+      end
+    end
+  end
 
   def is_admin?
     is_admin
@@ -67,6 +119,12 @@ class User < ActiveRecord::Base
     end
     set_photo_from_url(omniauth['info']['image'])
     self.authentications.build(provider: omniauth['provider'], uid: omniauth['uid'], token: (omniauth['credentials']['token'] rescue nil), secret: (omniauth['credentials']['secret'] rescue nil)) if !self.persisted? || !self.authentications.exists?(provider: omniauth['provider'], uid: omniauth['uid'])
+  end
+
+  private
+
+  def set_first_admin
+    self.is_admin = true if User.where(is_admin: true).count == 0
   end
 
 end

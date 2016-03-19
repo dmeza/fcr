@@ -7,7 +7,7 @@
           Inscritos para evento '#{@event.name}': 
           %span.count
             #{@events_users.count}
-          =# link_to 'Exportar a CSV', entry_list_to_csv_path(@event.id), style: "float:right;", class: 'btn'
+          =# link_to 'Exportar a CSV', entry_list_to_csv_path(@event.id), style: "float:right;", class: 'btn btn-default'
           = link_to 'Exportar a Excel', entry_list_to_xlsx_path(format: :xlsx), style: "margin-right:10px;", class: 'btn btn-xs btn-primary pull-right'
 
         .options

@@ -1,6 +1,6 @@
 class Brigade < ActiveRecord::Base
 
-  attr_accessible :name, :program, :program_id, :brigade_leader_id
+  # attr_accessible :name, :program, :program_id, :brigade_leader_id
 
   validates_presence_of :name
 
