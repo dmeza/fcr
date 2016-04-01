@@ -1,0 +1,29 @@
+.row
+  .col-md-12
+    %table.table.table-striped.table-hover
+      %thead
+        %tr
+          %th Nombre
+          %th Hospital
+          %th Nacimiento
+          %th Ciudad
+          %th Tutor
+          %th Sueño
+          %th Diagnóstico
+          %th Estado
+      %tbody
+        - @children.each do |child|
+          %tr
+            %td= child.name
+            %td= child.hospital.name
+            %td= child.birth_date.strftime("%Y-%m-%d") unless child.birth_date.nil?
+            %td= child.city.name
+            %td= child.relatives.where(relative_type_id: 3).first.try(:name)
+            %td= child.dream
+            %td= child.diagnostic.name
+            %td= child.child_status.name
+                    
+    = will_paginate @children, params:{controller: "admin/children", action: 'children_filter', params: clear_search_params([:page])}, renderer: RemoteLinkPagination::LinkRenderer
+    %br/
+    = raw WPHelper.new.page_entries_info(@children)
+    =# will_paginate @children

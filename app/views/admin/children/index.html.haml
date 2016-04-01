@@ -1,0 +1,66 @@
+.container.admin
+  = render 'shared/navigation_admin'
+  .row
+    .col-lg-12
+      .chart
+        %h3.module_header
+          Niños
+          %span.count
+            #{@children.count}
+          = link_to 'Exportar a Excel', to_xlsx_admin_children_path(format: :xlsx), style: "margin-right:10px;", class: 'btn btn-xs btn-primary pull-right'
+    .col-lg-12
+      .well
+        .row
+          .col-lg-5
+          .col-lg-2
+            Busqueda:
+            %br
+          .col-lg-5
+        .row        
+        .row
+          = form_tag child_filter_path, method: 'get', remote: true do
+            .col-lg-2
+            .col-lg-3
+              .row
+                .col-lg-12.pull-left
+                  .input-group.input-group-sm
+                    %label Nombre:
+                    = text_field_tag :child_name, '', class: 'form-control', placeholder: "Nombre"
+              .row     
+                .col-lg-12.pull-left
+                  .input-group.input-group-sm
+                    %label Sueño:
+                    = text_field_tag :child_dream, '', class: 'form-control', placeholder: "Sueño"
+              
+            .col-lg-2
+              .row
+                .col-md-10.pull-left
+                  .input-group.input-group-sm
+                    Hospital:
+                    = select_tag :hospital_id, options_from_collection_for_select(Hospital.all, :id, :name), {include_blank: true} 
+              .row 
+                .col-md-10.pull-left
+                  .input-group.input-group-sm
+                    Estado:
+                    = select_tag :child_status_id, options_from_collection_for_select(ChildStatus.all, :id, :name), {include_blank: true} 
+                    
+            .col-lg-2
+              .row
+                .col-md-10.pull-left
+                  .input-group.input-group-sm
+                    Diagnóstico:
+                    = select_tag :diagnostic_id, options_from_collection_for_select(Diagnostic.all, :id, :name), {include_blank: true} 
+              .row
+                .col-md-10.pull-left
+                  .input-group.input-group-sm
+                    Ciudad:
+                    = select_tag :city_id, options_from_collection_for_select(City.all, :id, :name), {include_blank: true} 
+               
+            .col-md-1.pull-right
+              %button.btn.btn-succes{type: "submit", value: "Search",style:"margin-top:15px"}
+                %i.glyphicon.glyphicon-search
+            .col-md-1
+            .col-md-1
+        %br
+        .report-content
+          = render 'children'

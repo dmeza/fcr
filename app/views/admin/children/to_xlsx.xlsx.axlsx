@@ -1,0 +1,16 @@
+wb = xlsx_package.workbook
+wb.styles.fonts.first.name = 'Times New Roman'
+st_header = wb.styles.add_style border: Axlsx::STYLE_THIN_BORDER, b: true, alignment: { horizontal: :center, vertical: :center, wrap_text: true }, sz: 10
+st_detail = wb.styles.add_style border: Axlsx::STYLE_THIN_BORDER, alignment: { horizontal: :center, vertical: :center, wrap_text: true }, sz: 10
+wb.add_worksheet(name: "Niños #{params[:type]}", page_setup: { fit_to_width: 1 }) do |sheet|
+  sheet.page_setup.set(paper_width: "210mm", paper_height: "297mm")
+  #header
+  sheet.add_row [], height: 13 #empty
+  sheet.add_row ['Nombre', 'Hospital', 'Fecha Nacimiento', 'Ciudad', 'Tutor', 'Sueño', 'Diagnóstico', 'Estado'], style: st_header
+
+  @children.each do |child|
+    sheet.add_row ["#{child.name}", "#{child.hospital.name}", "#{child.birth_date.strftime("%Y-%m-%d") unless child.birth_date.nil?}", "#{child.city.name}", "#{child.relatives.where(relative_type_id: 3).first.try(:name)}", "#{child.dream}", "#{child.diagnostic.name}", "#{child.child_status.name}"], style: st_detail
+
+  end
+
+end
