@@ -1,0 +1,16 @@
+wb = xlsx_package.workbook
+wb.styles.fonts.first.name = 'Times New Roman'
+st_header = wb.styles.add_style border: Axlsx::STYLE_THIN_BORDER, b: true, alignment: { horizontal: :center, vertical: :center, wrap_text: true }, sz: 10
+st_detail = wb.styles.add_style border: Axlsx::STYLE_THIN_BORDER, alignment: { horizontal: :center, vertical: :center, wrap_text: true }, sz: 10
+wb.add_worksheet(name: "Polls #{params[:type]}", page_setup: { fit_to_width: 1 }) do |sheet|
+  sheet.page_setup.set(paper_width: "210mm", paper_height: "297mm")
+  #header
+  sheet.add_row [], height: 13 #empty
+  sheet.add_row ['Participante', 'Código', 'Fecha'], style: st_header
+
+  @polls.each do |poll|
+    sheet.add_row ["#{poll.participant.name}", "#{poll.code}", "#{poll.poll_date.strftime("%Y-%m-%d") unless poll.poll_date.nil?}"], style: st_detail
+
+  end
+
+end
