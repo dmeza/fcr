@@ -7,7 +7,6 @@
           Niños
           %span.count
             #{@children.count}
-          =# link_to 'Exportar a CSV', to_csv_admin_children_path, style: "float:right;", class: 'btn btn-default'
           = link_to 'Exportar a Excel', to_xlsx_admin_children_path(format: :xlsx), style: "margin-right:10px;", class: 'btn btn-xs btn-primary pull-right'
     .col-lg-12
       .well
@@ -64,34 +63,4 @@
             .col-md-1
         %br
         .report-content
-          = render 'children'        
-
-        
-- content_for :js_footer do
-  :javascript
-    $(function() {
-      $('input.datepicker').datepicker({
-        dateFormat: "yy-mm-dd",
-        changeMonth: true,
-        changeYear: true,
-        minDate: '-12M',
-        maxDate: "0"
-      });
-      $('#voluntary_name').autocomplete({
-        source: "#{admin_responsable_autocomplete_path}",
-        minLength: 1,
-        select: function( event, ui ) {
-          $(this).css("border-color","#9FF781");
-          if(ui.item) {
-            $("#voluntary_id").val(ui.item.id);
-          } else {
-            return false;
-          }
-        }
-      }).blur(function() {
-        if($(this).val() === ""){
-          $(this).css("border-color","#fff");
-          $("#voluntary_id").val("");
-        }
-      });
-    });
+          = render 'children'
