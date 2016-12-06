@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   get 'admin/children/child_filter' => 'admin/children#child_filter', as: :child_filter
   get 'admin/events/events_filter' => 'admin/events#events_filter', as: :events_filter
   get 'admin/users/users_filter' => 'admin/users#users_filter', as: :users_filter
+  
   namespace :admin do
     resource :dash
 
@@ -55,6 +56,7 @@ Rails.application.routes.draw do
         get :to_xlsx #, :to_csv
       end
     end
+    
     resources :children do
       member do
         post :activate
@@ -63,6 +65,7 @@ Rails.application.routes.draw do
         get :to_xlsx #, :to_csv
       end
     end
+    
     resources :brigades
     resources :events do
       member do
@@ -72,6 +75,14 @@ Rails.application.routes.draw do
       end
     end
     get 'responsable_autocomplete' => 'events#responsable_autocomplete'
+
+    resources :hospitals do 
+
+    end
+
+
+
+
   end
 
 

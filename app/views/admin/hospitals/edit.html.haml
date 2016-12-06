@@ -1,0 +1,38 @@
+.container.admin
+  = render 'shared/navigation_admin'
+  .row.adform
+    = form_for @hospital, url: (@hospital.new_record? ? admin_hospitals_path : admin_hospital_path(@hospital.id)), method: (@hospital.new_record? ? 'post' : 'put'), html: {id: 'eventForm'} do |f|
+      .chart
+        %h3.module_header
+          #{(@hospital.new_record? ? 'Nuevo Hospital' : "Editar Hospital")}
+        .col-lg-12
+          .temp_list
+            %ul
+              - unless @hospital.errors.empty?
+                %li
+                  .alert.alert-danger.errors
+                    = @hospital.errors.full_messages.join(', ')
+              %li
+              .row
+                .col-lg-3
+                  %span Ciudad *
+                .col-lg-7
+                  = f.select :city_id, options_from_collection_for_select(City.all, :id, :name, @hospital.city_id), {}, {class: "form-control"}
+              %li
+              .row
+                .col-lg-3
+                  %span Nombre *
+                .col-lg-7
+                  = f.text_field :name, size: '250', maxlenght: '250', class: "form-control"
+              %li
+                %i{style: 'font-size: 12px;'} Los campos marcados con * son obligatorios
+                %hr/
+                .botones
+                  = link_to "Guardar", "#", onclick: "$('#eventForm').submit(); return false;", class: 'btn btn-primary btn-inverse'
+                  = link_to "Cancelar", admin_hospitals_path, class: 'btn btn-default'
+                  - unless @hospital.new_record?
+                    = link_to "Borrar", admin_hospital_path(@hospital.id), class: 'btn btn-default', confirm: "Esta seguro que desea borrar el evento:#{@hospital.name}?", method: 'delete'
+
+
+
+
