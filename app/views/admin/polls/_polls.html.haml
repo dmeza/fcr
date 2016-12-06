@@ -1,0 +1,19 @@
+.row
+  .col-md-12
+    %table.table.table-striped.table-hover
+      %thead
+        %tr
+          %th Participante
+          %th Código
+          %th Fecha
+      %tbody
+        - @polls.each do |poll|
+          %tr
+            %td= poll.participant.name
+            %td= poll.code
+            %td= poll.poll_date.strftime("%Y-%m-%d") unless poll.poll_date.nil?
+                    
+    = will_paginate @polls, params:{controller: "admin/polls", action: 'polls_filter', params: clear_search_params([:page])}, renderer: RemoteLinkPagination::LinkRenderer
+    %br/
+    = raw WPHelper.new.page_entries_info(@polls)
+    =# will_paginate @polls
