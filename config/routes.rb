@@ -63,7 +63,10 @@ Rails.application.routes.draw do
       end
       collection do
         get :to_xlsx #, :to_csv
+
       end
+
+
     end
     
     resources :brigades

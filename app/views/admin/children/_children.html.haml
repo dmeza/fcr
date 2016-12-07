@@ -11,10 +11,11 @@
           %th Sueño
           %th Diagnóstico
           %th Estado
+          %th Acciones
       %tbody
         - @children.each do |child|
           %tr
-            %td= child.name
+            %td= link_to "#{child.name}", edit_admin_child_path(child.id)  
             %td= child.hospital.name
             %td= child.birth_date.strftime("%Y-%m-%d") unless child.birth_date.nil?
             %td= child.city.name
@@ -22,6 +23,9 @@
             %td= child.dream
             %td= child.diagnostic.name
             %td= child.child_status.name
+            %td
+              = link_to admin_child_path(child.id), method: :delete, class: 'btn btn-default btn-sm delete', title: 'Delete', data: {toggle: 'tooltip', confirm: "Esta segur@ que desea borrar el niño: #{child.name}?"} do
+                %i.glyphicon.glyphicon-trash
                     
     = will_paginate @children, params:{controller: "admin/children", action: 'children_filter', params: clear_search_params([:page])}, renderer: RemoteLinkPagination::LinkRenderer
     %br/

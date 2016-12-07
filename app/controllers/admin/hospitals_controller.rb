@@ -4,7 +4,7 @@ class Admin::HospitalsController < Admin::AdminController
   before_filter :set_menu
 
   def index
-    @hospitals = Hospital.all.paginate(:page => params[:page], :per_page => 50)
+    @hospitals = Hospital.paginate(:page => params[:page], :per_page => 50)
   end
 
   def new
@@ -44,7 +44,7 @@ class Admin::HospitalsController < Admin::AdminController
   def destroy
     hospital = Hospital.find(params[:id])
     hospital.destroy
-    flash[:ok] = "Hospital #{hospital.name} deleted"
+    flash[:ok] = "Hospital #{hospital.name} borrado"
     redirect_to admin_hospitals_path
   end
 

@@ -5,10 +5,11 @@
         %tr
           %th Ciudad ID
           %th Nombre
+          %th Actions
       %tbody
         - @hospitals.each do |hospital|
           %tr 
-            %td #{hospital.city.name}
+            %td  #{hospital.city.name}
             %td= link_to "#{hospital.name}", edit_admin_hospital_path(hospital.id)
             %td= button_to "delete", admin_hospital_path(hospital.id), data: {confirm: "Are you sure you want to delete user: #{hospital.name}?"}, method: :delete
     = will_paginate @hospitals, class: "center" 
