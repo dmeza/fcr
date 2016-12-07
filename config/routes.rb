@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   post 'brigades/:id/remove_brigadist' => 'brigades#remove_brigadist', as: :remove_brigadist
   get 'admin/volunteers/volunteer_filter' => 'admin/volunteers#volunteer_filter', as: :volunteer_filter
   get 'admin/children/child_filter' => 'admin/children#child_filter', as: :child_filter
+  get 'admin/polls/poll_filter' => 'admin/polls#poll_filter', as: :poll_filter
   get 'admin/events/events_filter' => 'admin/events#events_filter', as: :events_filter
   get 'admin/users/users_filter' => 'admin/users#users_filter', as: :users_filter
   
@@ -65,7 +66,16 @@ Rails.application.routes.draw do
         get :to_xlsx #, :to_csv
       end
     end
-    
+
+    resources :polls do
+      member do
+        post :activate
+      end
+      collection do
+        get :to_xlsx #, :to_csv
+      end
+    end
+
     resources :brigades
     resources :events do
       member do

@@ -1,0 +1,55 @@
+.container.admin
+  = render 'shared/navigation_admin'
+  .row
+    .col-lg-12
+      .chart
+        %h3.module_header
+          Encuestas
+          %span.count
+            #{@polls.count}
+          = link_to 'Exportar a Excel', to_xlsx_admin_polls_path(format: :xlsx), style: "margin-right:10px;", class: 'btn btn-xs btn-primary pull-right'
+    .col-lg-12
+      .well
+        .row
+          .col-lg-5
+          .col-lg-2
+            Busqueda:
+            %br
+          .col-lg-5
+        .row        
+        .row
+          = form_tag poll_filter_path, method: 'get', remote: true do
+            .col-lg-2
+            .col-lg-3
+              .row
+                .col-lg-12.pull-left
+                  .input-group.input-group-sm
+                    %label Código:
+                    = text_field_tag :code, '', class: 'form-control', placeholder: "Código"
+            .col-lg-2
+              .row
+                .col-md-10.pull-left
+                  .input-group.input-group-sm
+                    Fecha Inicial
+                    = text_field_tag :date, "", class: 'form-control datepicker date'
+               
+            .col-md-1.pull-right
+              %button.btn.btn-succes{type: "submit", value: "Search",style:"margin-top:15px"}
+                %i.glyphicon.glyphicon-search
+            .col-md-1
+            .col-md-1
+        %br
+        .report-content
+          = render 'polls'
+
+- content_for :js_footer do
+  :javascript
+    $(function() {
+      $('input.datepicker').datepicker({
+        dateFormat: "yy-mm-dd",
+        changeMonth: true,
+        changeYear: true,
+        minDate: '-12M',
+        maxDate: "0"
+      });
+    });
