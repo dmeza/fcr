@@ -1,7 +1,6 @@
 class EventsUser < ActiveRecord::Base
 
   belongs_to  :event
-
   belongs_to  :user
 
   # attr_accessible :user_id, :event_id, :user, :event, :is_brigadist

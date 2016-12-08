@@ -1,3 +1,9 @@
 class Poll < ActiveRecord::Base
-  belongs_to :participant, polymorphic: true
+
+    require 'roo'
+
+
+    belongs_to :participant, polymorphic: true
+
+
 end

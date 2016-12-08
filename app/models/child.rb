@@ -7,7 +7,7 @@ class Child < ActiveRecord::Base
 
 
 
-  validates :hospital_id, :diagnostic_id, :child_status_id, :genere, 
+  validates :hospital_id, :diagnostic_id, :child_status_id, 
                    :city_id, :name, :birth_date, :dream, :address,  presence: true
 
    

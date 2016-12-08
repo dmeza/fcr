@@ -1,5 +1,3 @@
-# encoding: UTF-8
-# encoding: UTF-8
 class Event < ActiveRecord::Base
 
   include ActionView::Helpers
