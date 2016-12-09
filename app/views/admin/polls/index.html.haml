@@ -42,8 +42,13 @@
         .report-content
           = render 'polls'
           %br
-          = @pollInformation
-          
+          = form_tag({:action => 'from_xlsx'}, :multipart => true) do
+            %p
+              %label{:for => "upload_file"} Importar Archivo 
+              = file_field 'upload', 'datafile'
+              = submit_tag "Upload"
+
+
           
 
 - content_for :js_footer do

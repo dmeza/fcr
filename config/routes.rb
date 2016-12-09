@@ -76,6 +76,7 @@ Rails.application.routes.draw do
       end
       collection do
         get :to_xlsx #, :to_csv
+        post :from_xlsx
       end
     end
 
