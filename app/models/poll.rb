@@ -23,13 +23,12 @@ class Poll < ActiveRecord::Base
 		    # Un error a nuestro criterio si el valor del nombre de la ciudad
 		    # No existe. Toca revisar este punto.
 		    # Crear el diagnostico puede incurrir en una condicion similar a la de crear la ciudad.
-		    
 	        begin 
 	        	city = City.find_or_create_by!(name: info[:city])
 	         	hospital =  Hospital.find_or_create_by!(name: info[:hospital], city_id: city.id)
-	    	    diagnostic = Diagnostic.find_or_create_by!(name: info[:diagnostic])
+	    	    diagnostic = Diagnostic.find_or_create_by(name: info[:diagnostic]) 
 	    		status =  ChildStatus.find_or_create_by!(name: info[:child_status])
-	    		child = Child.find_or_create_by!(hospital: hospital, name: info[:name], birth_date: info[:birthday], genere: '', address: info[:address], city: city, dream: info[:dream] , diagnostic: diagnostic, child_status: status)
+	    		child = Child.create!(hospital: hospital, name: info[:name], birth_date: info[:birthday], genere: '', address: info[:address], city: city, dream: info[:dream] , diagnostic: diagnostic, child_status: status)
 	        rescue ActiveRecord::RecordInvalid => e
 	         	errors << 'Error en la creacion de ' + e.record.class.to_s + ': ' + e.message.to_s
 	       end

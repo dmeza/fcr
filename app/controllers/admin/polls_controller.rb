@@ -42,7 +42,9 @@ class Admin::PollsController < Admin::AdminController
       flash[:notice] = "Tus Archivos fueron guardados, pero contienen errores. #{@errors}"
     end
 
-    redirect_to :back
+    redirect_to admin_polls_path
+
+
 
   end
 

@@ -71,6 +71,10 @@ gem 'axlsx_rails', '~> 0.2.0'
 gem 'paperclip', ">= 4.1.1"
 
 
-group :development, :test do
+group :test do
+  
   gem 'rspec-rails', '~> 3.5'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+
 end
