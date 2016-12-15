@@ -12,7 +12,7 @@ class Poll < ActiveRecord::Base
     	pollInformation = []
     	errors = []
 
-	    xlsx.each(hospital: 'HOSPITAL', name: 'NOMBRE COMPLETO', birthday: 'FECHA DE NACIMIENTO', address: 'DIRECCION DOMICILIO', city: 'CIUDAD O PROV.', relative: 'NOMBRE MAMÁ O TUTOR', phone: 'TELEFONO FIJO', cellphone: 'CELULAR', diagnostic: 'DIAGNOSTICO', dream: 'SUEÑO DEL NIÑ@', child_status: 'ESTADO') do |row|
+	    xlsx.each(hospital: 'HOSPITAL', name: 'NOMBRE COMPLETO', birthday: 'FECHA DE NACIMIENTO (mm/dd/aa)', address: 'DIRECCION DOMICILIO', city: 'CIUDAD O PROV.', relative: 'NOMBRE MAMÁ O TUTOR', phone: 'TELEFONO FIJO', cellphone: 'CELULAR', diagnostic: 'DIAGNOSTICO', dream: 'SUEÑO DEL NIÑ@', child_status: 'ESTADO') do |row|
 	      next if row[:hospital] == 'HOSPITAL' 
 	      pollInformation << row 
 	    end
