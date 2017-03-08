@@ -12,7 +12,7 @@ class AddTablesForCollect < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :collect_year do |t|
+    create_table :collect_years do |t|
       t.integer :year, null: false, limit: 4
       t.date :event_date, null: false
     end
@@ -39,7 +39,7 @@ class AddTablesForCollect < ActiveRecord::Migration
   end
 
   def down
-    drop_column :users, :user_type
+    remove_column :users, :user_type
     drop_table :collect_year_place_volunteers
     drop_table :collect_year_places
     drop_table :collect_year
