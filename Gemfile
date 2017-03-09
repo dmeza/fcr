@@ -32,9 +32,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
-
+  
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
@@ -70,3 +68,29 @@ gem 'axlsx', '~> 2.0', git: "https://github.com/randym/axlsx.git"
 gem 'axlsx_rails', '~> 0.2.0'
 
 gem 'paperclip', ">= 4.1.1"
+
+
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
+  
+  gem 'rspec-rails', '~> 3.5'
+
+  # FactoryGirl to create model stubs.
+  gem 'factory_girl_rails'
+  # Faker to generate test data.
+  gem 'faker'
+end
+
+group :test do
+  # DatabaseCleaner for cleaning up the test database.
+  gem 'database_cleaner'
+
+  # Shoulda to make life easier.
+  gem 'shoulda'
+
+  # Provides the its method as a short-hand to specify the expected value
+  # of an attribute.
+  gem 'rspec-its'
+
+end

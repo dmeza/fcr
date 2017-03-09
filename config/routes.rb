@@ -91,6 +91,10 @@ Rails.application.routes.draw do
 
   get '/return_to_admin' => 'home#return_to_admin', :as => :return_to_admin
 
+  namespace :collect do
+    post 'add_volunteer'
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
