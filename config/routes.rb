@@ -22,6 +22,11 @@ Rails.application.routes.draw do
   get 'info/send_mail' => 'info#send_mail', as: :info_send_mail
   
   get 'responsable_autocomplete' => 'events#responsable_autocomplete'
+  #register a volunteer for collect campaign
+  get 'register_volunteer' => 'collect#register_volunteer_form'
+  get 'landing_page' => 'collect#landing_page'
+  post 'landing_page' => 'collect#save_mail'
+
 
   # Brigade Leader routes
   get 'brigades/dashboard' => 'brigades#dashboard', as: :brigades_dash
