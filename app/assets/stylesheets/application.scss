@@ -28,4 +28,26 @@
 .calendar .fc-content .fc-event-container a.Colecta {background-color: #C8FDC8; }
 .calendar .fc-content .fc-event-container a.Inducción {background-color: #E7CDFF; }
 
+#main-image {
+  max-height: 500px;
+  overflow: hidden;
+}
+
+.campaign-info {
+  background-color: grey;
+  height: 200px;
+  border: 1px solid white;
+}
+
+#email-registration h1 {
+  margin-top: 40px;
+}
+
+#email {
+  margin-top: 40px !important;
+  padding: 10px !important;
+  width: 30% !important;
+  margin: 0 auto;
+}
+
 

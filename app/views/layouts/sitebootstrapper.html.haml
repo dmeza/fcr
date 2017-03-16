@@ -10,6 +10,7 @@
     = stylesheet_link_tag "application"
     = yield :css_content
     = csrf_meta_tag
+    %link{:rel => "stylesheet", :href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", :type => "text/css"}
 
   %body{id: @page_id ? @page_name : controller_name}
     = render "/shared/facebook_init" if defined? FB_APP_ID
@@ -19,7 +20,7 @@
 
 
     / Content
-    
+
     - if !flash.empty?
       / flash messages
       #flash_messages_container
@@ -31,7 +32,7 @@
                 #{msg}
           %br/
       / flash messages
-      
+
     = content_for?(:main_content) ? yield(:main_content) : yield
 
     / End Content
@@ -39,6 +40,8 @@
 
     / JS files
     = javascript_include_tag "application"
+
+    %script{:src => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"}
 
     - if !flash.empty?
       -# flash messages
