@@ -15,11 +15,7 @@
 /tmp
 
 /.idea
-fcr.iml
 
 /config/database.yml
 config/email_settings.yml
 .sass-cache
-
-#byebug history
-.byebug_history
