@@ -4,9 +4,7 @@ class CollectController < ApplicationController
   end
 
   def save_mail
-  	byebug
   	email = params[:email]
-  	byebug
   	redirect_to action: "register_volunteer_form", volunteer_email: email
   end
 
