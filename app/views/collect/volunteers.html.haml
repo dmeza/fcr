@@ -1,0 +1,53 @@
+.container.add_friends
+  .row
+    %h1 Invita a tus amigos a participar
+    = form_tag(registration_path(resource_name), :html => {:class => "form-inline"} ) do
+      .row#friends_personal_data
+        .col-lg-3
+          .form-group
+            = label_tag 'Nombre *'
+            = text_field_tag :friend_firstname,'', class: "form-control", type: "text", id: "friend_firstname"
+        .col-lg-3
+          .form-group
+            = label_tag 'Apellido *'
+            = text_field_tag :friend_lastname,'', class: "form-control", type: "text", id: "friend_lastname"
+        .col-lg-3
+          .form-group
+            = label_tag 'Email *'
+            = text_field_tag :friend_email,'', class: "form-control", type: "text", id: "friend_email"
+        .col-lg-3
+          .form-group
+            = label_tag 'Móvil *'
+            = text_field_tag :friend_phone,'', class: "form-control phone", type: "text", id: "friend_phone"
+      .row.text-center#add_friend_button
+        .col-lg-3
+          %button#button_add_friend.btn.btn-primary Agregar
+      .row.text-center#friends_list
+        .table-responsive
+          %table.table.table-condensed.table-bordered{:id => "friends_list_table"}
+            %thead
+              %tr
+                %th Nombre
+                %th Apellido
+                %th Correo
+                %th Celular
+            %tbody
+              %tr
+                %td data3
+                %td data14
+                %td data14
+                %td data14
+              %tr
+                %td data15
+                %td data16
+                %td data14
+                %td data14
+              %tr
+                %td data17
+                %td data18
+                %td data14
+                %td data14
+      .row.text-center#finish_add_friend_button
+        .col-lg-3
+          %button#button_finish_add_friend.btn.btn-primary Terminar
+

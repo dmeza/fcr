@@ -11,6 +11,8 @@
     = yield :css_content
     = csrf_meta_tag
     %link{:rel => "stylesheet", :href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", :type => "text/css"}
+    %link{:rel => "stylesheet", :href => "https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css", :type => "text/css"}
+
 
   %body{id: @page_id ? @page_name : controller_name}
     = render "/shared/facebook_init" if defined? FB_APP_ID
@@ -42,6 +44,7 @@
     = javascript_include_tag "application"
 
     %script{:src => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"}
+    %script{:src => "https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"}
 
     - if !flash.empty?
       -# flash messages

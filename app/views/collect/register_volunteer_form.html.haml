@@ -5,110 +5,78 @@
   .row
     .col-lg-12
       .page-header
-        %h1 Registrarse
-  .row
-    .col-lg-8.col-md-8
+        %h1 Datos Personales
+  .row#personal-data
+    .col-lg-8.col-md-8{style: "float:none; margin: 0 auto;"}
       = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => "form-inline"} ) do |f|
         = devise_error_messages!
         .row
-          .col-lg-12
-
+          .col-lg-6
             .form-group
               = f.label 'Nombre *', for: "nombre"
-              %br/
-              = f.text_field :first_name, class: "form-control", type: "text", id: "nombre", style: "width: 90%; height: 32px; padding: 5px;"
-            %br/
-            %br/
+              = f.text_field :first_name, class: "form-control", type: "text", id: "nombre"
+          .col-lg-6
             .form-group
               = f.label 'Apellido *', for: "apellido"
-              %br/
-              = f.text_field :last_name, class: "form-control", type: "text", id: "apellido", style: "width: 90%; height: 32px; padding: 5px;"
-        %br/
+              = f.text_field :last_name, class: "form-control", type: "text", id: "apellido"
         .row
-          .col-lg-12
+          .col-lg-4
             .form-group
               = f.label 'Email *', for: "email"
-              %br/
-              = f.text_field :email, class: "form-control", type: "text", id: "email", style: "width: 90%; height: 32px; padding: 5px;"
-            %br/
-            %br/
+              = f.text_field :email, class: "form-control", type: "text", id: "email"
+          .col-lg-4
             .form-group
               = f.label 'Documento de identidad *', for: "indentifier"
-              %br/
-              = f.text_field :indentifier, class: "form-control idcard", type: "text", id: "indentifier", style: "width: 90%; height: 32px; padding: 5px;"
-            %br/
-            %br/
+              = f.text_field :indentifier, class: "form-control idcard", type: "text", id: "indentifier"
+          .col-lg-4
             .form-group
               = f.label 'Ciudad *', for: "city_id"
-              %br/
               = f.select :city_id, options_from_collection_for_select(City.all, :id, :name), {}, {class: "form-control"}
-        %br/
         .row
-          .col-lg-12
+          .col-lg-6
             .form-group
               = f.label 'Teléfono casa *', for: "phone"
-              %br/
-              = f.text_field :phone, class: "form-control phone", type: "text", id: "phone", style: "width: 90%; height: 32px; padding: 5px;"
-            %br/
-            %br/
+              = f.text_field :phone, class: "form-control phone", type: "text", id: "phone"
+          .col-lg-6
             .form-group
               = f.label 'Celular', for: "mobile"
-              %br/
-              = f.text_field :mobile, class: "form-control numeric-integer", type: "text", id: "mobile", style: "width: 90%; height: 32px; padding: 5px;"
-
-        %br/
+              = f.text_field :mobile, class: "form-control numeric-integer", type: "text", id: "mobile"
         .row
-          .col-lg-12
-            .form-group
+          .col-lg-6
+            .form-group#datepicker-personal-data
               = f.label 'Fecha de nacimiento *:', for: "datepicker"
               = f.text_field :birth_date, class: "form-control date", size: '10', maxlength: '10', placeholder: "Fecha de nacimiento", id: 'datepicker'
-
-        %br/
-        .row
-          .col-lg-12
-            .form-group
+          .col-lg-6
+            .form-group#motivacion-personal-data
               = f.label 'Motivación para ser voluntario', for: "motivation"
-              %br/
-              = f.text_area :motivation, class: "form-control", id: "motivation", style: "width: 90%; height: 64px; padding: 5px;"
-
-        %br/
+              = f.text_area :motivation, class: "form-control", id: "motivation"
         .row
-          .col-lg-12
+          .col-lg-6
             .form-group
               = f.label 'Contraseña *', for: "password"
-              %br/
-              = f.password_field :password, id: 'password', style: "width: 90%; height: 32px; padding: 5px;"
-            %br/
-            %br/
+              = f.password_field :password, id: 'password'
+          .col-lg-6
             .form-group
               = f.label 'Confirmar contraseña *', for: "password_confirmation"
-              %br/
-              = f.password_field :password_confirmation, style: "width: 90%; height: 32px; padding: 5px;"
-        %br/
+              = f.password_field :password_confirmation
         .row
-          .col-lg-12
+          .col-lg-6
             %p
               = f.label 'Deseo recibir el boletín de noticias'
-              = f.check_box :contact_me, style: 'margin-top: -5px;'
-            %br/
+              = f.check_box :contact_me
+          .col-lg-6
             %p
               = f.label '' do
                 ¿Ya recibió la
                 = link_to 'inducción', '#', title: 'Inducción es una clase de preparación para que los voluntarios puedan participar de mejor manera en los eventos. Es requerida para poder participar en eventos.'
                 en alguna institución?
-              = f.check_box :has_institution_induction, style: 'margin-top: -5px;'
-            %br/
-            %p
-              %button.btn.btn-primary{:type => 'submit'}
-                Registrarse
-              %br/
-              %br/
-              %span{style: 'font-size: 11px;'}
-                * Los campos marcados con asterisco son obligatorios.
-
-
-    .col-lg-4.col-md-4
-      = render :partial => "devise/shared/links"
+              = f.check_box :has_institution_induction
+        .row
+          .col-lg-12
+            %p{style: 'font-size: 11px;'} * Los campos marcados con asterisco son obligatorios.
+        .row
+          .col-lg-12
+            %button#button-personal-data.btn.btn-primary{:type => 'submit'} Registrarse
 
 - content_for :js_footer do
   :javascript

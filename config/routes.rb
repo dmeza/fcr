@@ -20,12 +20,13 @@ Rails.application.routes.draw do
   get 'event/entry_list_to_xlsx/:id' => 'admin/events#entry_list_to_xlsx', as: :entry_list_to_xlsx
 
   get 'info/send_mail' => 'info#send_mail', as: :info_send_mail
-  
+
   get 'responsable_autocomplete' => 'events#responsable_autocomplete'
   #register a volunteer for collect campaign
   get 'register_volunteer' => 'collect#register_volunteer_form'
   get 'landing_page' => 'collect#landing_page'
   post 'landing_page' => 'collect#save_mail'
+  get 'volunteers' => 'collect#volunteers'
 
 
   # Brigade Leader routes

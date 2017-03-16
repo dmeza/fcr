@@ -43,11 +43,71 @@
   margin-top: 40px;
 }
 
-#email {
+#email-landing {
   margin-top: 40px !important;
   padding: 10px !important;
   width: 30% !important;
   margin: 0 auto;
 }
 
+.form-group label {
+  display: block;
+}
 
+#personal-data .form-group {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+#personal-data .form-group input, #personal-data .form-group select {
+  width: 100%
+}
+
+#datepicker-personal-data {
+  width: 50%;
+}
+
+#datepicker-personal-data input {
+  width: 90% !important;
+  margin-right: 5px;
+}
+
+#motivacion-personal-data {
+  width: 100%;
+}
+
+#motivacion-personal-data textarea {
+  width: 100%;
+}
+
+#button-personal-data {
+  float: right;
+}
+
+#friends_personal_data {
+    width: 80%;
+    margin: 40px auto 10px auto;
+}
+
+#add_friend_button .col-lg-3, #finish_add_friend_button .col-lg-3 {
+  float: none;
+  margin: 0 auto;
+}
+
+#add_friend_button .col-lg-3 button, #finish_add_friend_button .col-lg-3 button {
+  width: 80%;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+#friends_list_table {
+  width: 70%;
+  float: none;
+  margin: 20px auto;
+}
+
+#friends_list_table td {
+  text-align: left;
+}

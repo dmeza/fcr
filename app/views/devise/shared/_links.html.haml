@@ -12,9 +12,9 @@
     = link_to "No recibió instrucciones de confirmación?", new_confirmation_path(resource_name)
     %br/
   - if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
-    = link_to "No recibió instrucciones de desbloqueo?", new_unlock_path(resource_name)
+    = link_to "No recibió instrucciones de desbloqueo?", new_unlock_path(resource_name), class: "btn-info"
     %br/
   - if false && devise_mapping.omniauthable?
     - resource_class.omniauth_providers.each do |provider|
-      = link_to "Ingresar con #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider)
+      = link_to "Ingresar con #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider), class: "btn-info"
       %br/
