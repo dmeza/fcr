@@ -28,12 +28,6 @@
             %li
               .row
                 .col-lg-3
-                  %span Área *
-                .col-lg-9
-                  = f.select :area_id, options_from_collection_for_select(Area.all, :id, :name, @event.area_id), {}, {class: "form-control"}
-            %li
-              .row
-                .col-lg-3
                   %span Nombre *
                 .col-lg-9
                   = f.text_field :name, size: '150', maxlenght: '150', class: "form-control"

@@ -23,6 +23,8 @@ class Event < ActiveRecord::Base
   belongs_to :brigade
   has_many :event_histories, dependent: :destroy
 
+  before_save :set_default_area
+
   validates_presence_of :name, :spaces, :responsable_id ,:event_type, 
                         :event_date, :state, :place, :activation_date
   validates_presence_of :spaces, if: Proc.new {|e| e.event_type.has_limit }
@@ -77,7 +79,11 @@ class Event < ActiveRecord::Base
     else
       event_name = "#{event_name}\nEvento: #{self.name}"|| ""
     end
-    return event_name
+    return "#{event_name}\nCiudad: #{city.name}"
+  end
+
+  def set_default_area
+    self.area = Area.find_or_create_by(name: '') unless area_id.present?
   end
 
 end

@@ -3,14 +3,17 @@ class HomeController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :calendar]
 
   def index
-    @city_id = (params[:city_id].nil? ? 1 : params[:city_id])
-    @events = Event.active.city(@city_id).paginate(page: params[:page], per_page: 50)
+    @city_id = params[:city_id]
+    @events = Event.active
+    @events = @events.city(params[:city_id]) if params[:city_id].present?
+    @events = @events.paginate(page: params[:page], per_page: 50)
     render :home if current_user
   end
 
   def calendar
-    @city_id = (params[:city_id].nil? ? 1 : params[:city_id])
-    @events = Event.active.city(@city_id).after(params['start']).before(params['end'])
+    @city_id = params[:city_id]
+    @events = Event.active.after(params['start']).before(params['end'])
+    @events = @events.city(@city_id) if @city_id.present?
 
     #@events = Event.all
     #@events = @events.after(params['start']) if (params['start'])

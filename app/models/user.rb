@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   belongs_to :city
 
   before_create :set_first_admin
+  before_save :activate
 
   has_attached_file :photo, {
       url: "/system/:class/:attachment/:id/:style_:basename.:extension",
@@ -125,6 +126,10 @@ class User < ActiveRecord::Base
 
   def set_first_admin
     self.is_admin = true if User.where(is_admin: true).count == 0
+  end
+
+  def activate
+    has_induction = true
   end
 
 end

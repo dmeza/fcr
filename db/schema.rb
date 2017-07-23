@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160227164903) do
+ActiveRecord::Schema.define(version: 20170723201504) do
 
   create_table "areas", force: :cascade do |t|
     t.string   "name",       limit: 200,                  null: false
     t.string   "color",      limit: 20,  default: "blue", null: false
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "authentications", force: :cascade do |t|
@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20160227164903) do
   create_table "brigades", force: :cascade do |t|
     t.integer  "program_id",        limit: 4,   null: false
     t.string   "name",              limit: 200, null: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "brigade_leader_id", limit: 4,   null: false
   end
 
@@ -62,8 +62,49 @@ ActiveRecord::Schema.define(version: 20160227164903) do
 
   create_table "cities", force: :cascade do |t|
     t.string   "name",       limit: 200, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "collect_emails", force: :cascade do |t|
+    t.string   "email",      limit: 255, null: false
     t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+  end
+
+  create_table "collect_places", force: :cascade do |t|
+    t.integer  "city_id",    limit: 4,   null: false
+    t.string   "name",       limit: 400, null: false
+    t.string   "address",    limit: 400, null: false
+    t.float    "lat",        limit: 24
+    t.float    "lng",        limit: 24
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "collect_year_place_volunteers", force: :cascade do |t|
+    t.integer  "collect_year_place_id", limit: 4,                         null: false
+    t.string   "first_name",            limit: 100,                       null: false
+    t.string   "last_name",             limit: 100,                       null: false
+    t.string   "phone",                 limit: 20
+    t.string   "email",                 limit: 255,                       null: false
+    t.string   "state",                 limit: 20,  default: "Pendiente", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "collect_year_places", force: :cascade do |t|
+    t.integer  "collect_place_id", limit: 4,                         null: false
+    t.integer  "collect_year_id",  limit: 4,                         null: false
+    t.integer  "place_leader_id",  limit: 4
+    t.integer  "volunteer_count",  limit: 2,  default: 0,            null: false
+    t.string   "state",            limit: 20, default: "Disponible", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "collect_years", force: :cascade do |t|
+    t.integer "year",       limit: 4, null: false
+    t.date    "event_date",           null: false
   end
 
   create_table "diagnostics", force: :cascade do |t|
@@ -87,16 +128,16 @@ ActiveRecord::Schema.define(version: 20160227164903) do
     t.string   "image_content_type", limit: 255
     t.integer  "image_file_size",    limit: 4
     t.datetime "image_updated_at"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "event_types", force: :cascade do |t|
     t.string   "name",               limit: 200,                 null: false
     t.boolean  "requires_inception",             default: true
     t.boolean  "is_inception",                   default: false
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "has_limit",                      default: false, null: false
   end
 
@@ -108,8 +149,8 @@ ActiveRecord::Schema.define(version: 20160227164903) do
     t.datetime "event_date",                                     null: false
     t.string   "place",           limit: 255,                    null: false
     t.string   "state",           limit: 255, default: "Activo", null: false
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "event_type_id",   limit: 4,                      null: false
     t.integer  "responsable_id",  limit: 4
     t.integer  "city_id",         limit: 4
@@ -147,8 +188,8 @@ ActiveRecord::Schema.define(version: 20160227164903) do
   create_table "programs", force: :cascade do |t|
     t.string   "name",        limit: 200, null: false
     t.text     "description", limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "relative_types", force: :cascade do |t|
@@ -169,8 +210,8 @@ ActiveRecord::Schema.define(version: 20160227164903) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "first_name",                limit: 100,                   null: false
-    t.string   "last_name",                 limit: 100,                   null: false
+    t.string   "first_name",                limit: 100,                          null: false
+    t.string   "last_name",                 limit: 100,                          null: false
     t.string   "phone",                     limit: 20
     t.float    "lat",                       limit: 24
     t.float    "lng",                       limit: 24
@@ -178,8 +219,8 @@ ActiveRecord::Schema.define(version: 20160227164903) do
     t.string   "photo_content_type",        limit: 255
     t.integer  "photo_file_size",           limit: 4
     t.boolean  "is_admin",                                default: false
-    t.string   "email",                     limit: 255,   default: "",    null: false
-    t.string   "encrypted_password",        limit: 255,   default: "",    null: false
+    t.string   "email",                     limit: 255,   default: "",           null: false
+    t.string   "encrypted_password",        limit: 255,   default: "",           null: false
     t.string   "password_salt",             limit: 255
     t.string   "reset_password_token",      limit: 255
     t.datetime "reset_password_sent_at"
@@ -193,8 +234,8 @@ ActiveRecord::Schema.define(version: 20160227164903) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",        limit: 255
     t.string   "last_sign_in_ip",           limit: 255
-    t.datetime "created_at",                                              null: false
-    t.datetime "updated_at",                                              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "has_induction",                           default: false
     t.date     "birth_date"
     t.string   "indentifier",               limit: 20
@@ -204,6 +245,7 @@ ActiveRecord::Schema.define(version: 20160227164903) do
     t.text     "motivation",                limit: 65535
     t.integer  "brigade_id",                limit: 4
     t.integer  "city_id",                   limit: 4
+    t.string   "user_type",                 limit: 50,    default: "voluntario", null: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
