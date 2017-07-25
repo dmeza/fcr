@@ -10,9 +10,10 @@
  *
  *= require_self
  *= require jquery-ui-1.10.2.custom
- *= require_tree ./bootstrap3
  *= require_tree ./theme_base
 */
+@import "bootstrap-sprockets";
+@import "bootstrap";
 
 /* para esconder los cambios de vista del calendario que se ven mal */
 .fc-header-right > * {display: none;}
