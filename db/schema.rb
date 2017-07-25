@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170723201504) do
+ActiveRecord::Schema.define(version: 20170725221650) do
 
   create_table "areas", force: :cascade do |t|
     t.string   "name",       limit: 200,                  null: false
@@ -246,6 +246,7 @@ ActiveRecord::Schema.define(version: 20170723201504) do
     t.integer  "brigade_id",                limit: 4
     t.integer  "city_id",                   limit: 4
     t.string   "user_type",                 limit: 50,    default: "voluntario", null: false
+    t.text     "history",                   limit: 65535
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
