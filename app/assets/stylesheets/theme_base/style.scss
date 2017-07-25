@@ -51,18 +51,18 @@ img{max-width:100%;}
 
 @font-face {
   font-family: 'FontAwesome';
-  src: url('/assets/fontawesome-webfont.eot?v=4.0.1');
-  src: url('/assets/fontawesome-webfont.eot?#iefix&v=4.0.1') format('embedded-opentype'), 
-        url('/assets/fontawesome-webfont.woff?v=4.0.1') format('woff'), 
-        url('/assets/fontawesome-webfont.ttf?v=4.0.1') format('truetype'), 
-        url('/assets/fontawesome-webfont.svg?v=4.0.1#fontawesomeregular') format('svg');
+  src: font-path('fontawesome-webfont.eot?v=4.0.1');
+  src: font-path('fontawesome-webfont.eot?#iefix&v=4.0.1') format('embedded-opentype'),
+       font-path('fontawesome-webfont.woff?v=4.0.1') format('woff'),
+       font-path('fontawesome-webfont.ttf?v=4.0.1') format('truetype'),
+       font-path('fontawesome-webfont.svg?v=4.0.1#fontawesomeregular') format('svg');
 }
 
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,700);
 
 body{
 	font-family: 'FontAwesome', Helvetica, "Helvetica Neue", Arial, sans-serif;
-	background: #999 url('/assets/denim.png') repeat left top;
+	background: #999 image-path('denim.png') repeat left top;
 	padding:20px 0;
 	position:relative;
 }
@@ -112,7 +112,7 @@ h1 {font-size: 1.8em;}
     span {
 	    color:#FFF; 
 	    font-size:1em; 
-	    background:url(/assets/loginArrow.png) no-repeat 26px 8px;
+	    background:image-path('loginArrow.png') no-repeat 26px 8px;
 	    display:block;
 	    padding: 0 30px 0 0;
 	    font-family: 'ambleregular';
@@ -269,44 +269,44 @@ fieldset#body {
 	background:#e64c65;
 }
 .menu_box_list li a.messages{
-	background-image:url(/assets/images/mail.png);
+	background-image:image-path('mail.png');
 	background-repeat:no-repeat;
 	background-position:30px  13px;
 }
 .menu_box_list li a.messages:hover{
-	background-image:url(/assets/images/mail-hover.png);
+	background-image:image-path('mail-hover.png');
 }
 .menu_box_list li a.invites{
-	background-image:url(/assets/images/invites.png);
+	background-image:image-path('invites.png');
 	background-repeat:no-repeat;
 	background-position:30px  13px;
 }
 .menu_box_list li a.invites:hover,.menu_box_list li.active a{
-	background-image:url(/assets/images/invites-hover.png);
+	background-image:image-path('invites-hover.png');
 }
 .menu_box_list li a.events{
-	background-image:url(/assets/images/events.png);
+	background-image:image-path('events.png');
 	background-repeat:no-repeat;
 	background-position:30px  13px;
 }
 .menu_box_list li a.events:hover{
-	background-image:url(/assets/images/events-hover.png);
+	background-image:image-path('events-hover.png');
 }
 .menu_box_list li a.account_settings{
-	background-image:url(/assets/images/settings.png);
+	background-image:image-path('settings.png');
 	background-repeat:no-repeat;
 	background-position:30px  13px;
 }
 .menu_box_list li a.account_settings:hover{
-	background-image:url(/assets/images/settings-hover.png);
+	background-image:image-path('settings-hover.png');
 }
 .menu_box_list li a.statistics{
-	background-image:url(/assets/images/statistics.png);
+	background-image:image-path('statistics.png');
 	background-repeat:no-repeat;
 	background-position:30px  13px;
 }
 .menu_box_list li a.statistics:hover{
-	background-image:url(/assets/images/statistics-hover.png);
+	background-image:image-path('statistics-hover.png');
 }
 /******* Carts *********/
 .chart {
