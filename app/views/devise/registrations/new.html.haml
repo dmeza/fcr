@@ -47,13 +47,13 @@
         .row
           .col-lg-12
             .form-group
-              = f.label 'Teléfono casa *', for: "phone"
+              = f.label 'Teléfono casa', for: "phone"
               %br/
               = f.text_field :phone, class: "form-control phone", type: "text", id: "phone", style: "width: 90%; height: 32px; padding: 5px;"
             %br/
             %br/
             .form-group
-              = f.label 'Celular', for: "mobile"
+              = f.label 'Celular *', for: "mobile"
               %br/
               = f.text_field :mobile, class: "form-control numeric-integer", type: "text", id: "mobile", style: "width: 90%; height: 32px; padding: 5px;"
 
@@ -76,6 +76,14 @@
         .row
           .col-lg-12
             .form-group
+              = f.label '¿Cuál es tu historia alrededor del cáncer?', for: "history"
+              %br/
+              = f.text_area :history, class: "form-control", id: "history", style: "width: 90%; height: 64px; padding: 5px;"
+
+        %br/
+        .row
+          .col-lg-12
+            .form-group
               = f.label 'Contraseña *', for: "password"
               %br/
               = f.password_field :password, id: 'password', style: "width: 90%; height: 32px; padding: 5px;"
@@ -91,13 +99,6 @@
             %p
               = f.label 'Deseo recibir el boletín de noticias'
               = f.check_box :contact_me, style: 'margin-top: -5px;'
-            %br/
-            %p
-              = f.label '' do
-                ¿Ya recibió la
-                = link_to 'inducción', '#', title: 'Inducción es una clase de preparación para que los voluntarios puedan participar de mejor manera en los eventos. Es requerida para poder participar en eventos.'
-                en alguna institución?
-              = f.check_box :has_institution_induction, style: 'margin-top: -5px;'
             %br/
             %p
               %button.btn.btn-primary{:type => 'submit'}

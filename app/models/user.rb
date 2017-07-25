@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   # attr_accessible :tos, :has_induction, :birth_date, :indentifier, :contact_me, :has_institution_induction, :mobile, :motivation, :brigade, :brigade_id, :city_id, :city
 
   validates_acceptance_of :tos, :message => 'deben ser aceptados'
-  validates_presence_of :birth_date, :phone
+  validates_presence_of :birth_date, :mobile
   validates :indentifier, uniqueness: true, presence: true
 
   has_many :events_users, dependent: :destroy
