@@ -74,6 +74,13 @@
             %li
               .row
                 .col-lg-3
+                  %span ¿Cuál es tu historia alrededor del cáncer?
+                .col-lg-9
+                  = f.text_area :history, class: 'form-control', style: "width: 90%; height: 64px; padding: 5px;"
+
+            %li
+              .row
+                .col-lg-3
                   %span Pertenece a brigada?
                 .col-lg-9
                   = f.select :brigade_id, options_from_collection_for_select(Brigade.all, :id, :name, @volunteer.brigade_id), {include_blank: true}, {class: 'form-control'}
