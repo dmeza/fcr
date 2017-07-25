@@ -129,7 +129,7 @@ class User < ActiveRecord::Base
   end
 
   def activate
-    has_induction = true
+    self.has_induction = true
   end
 
 end
