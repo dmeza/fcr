@@ -41,20 +41,6 @@
             Brigadas
             %span.messages
               = @brigadesCount
-        %li{class: ('active' if @selected_menu == 'Children')}
-          = link_to admin_children_path do
-            %i>
-              = image_tag("follow_user.png")
-            Niños
-            %span.messages
-              = @childrenCount
-        %li{class: ('active' if @selected_menu == 'Polls')}
-          = link_to admin_polls_path do
-            %i>
-              = image_tag("follow_user.png")
-            Encuestas
-            %span.messages
-              = @pollsCount
 
         .clear
 
