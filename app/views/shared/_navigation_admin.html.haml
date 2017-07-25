@@ -2,7 +2,7 @@
   .header_top
     .menu
       %a.toggleMenu{href: "#"}
-        %img{alt: "", src: "/assets/nav.png"}/
+        = image_tag("nav.png")
       %ul.nav
         %li
           = link_to root_path do
@@ -10,19 +10,19 @@
         %li{class: ('active' if @selected_menu == 'Dash')}
           = link_to admin_dash_path do
             %i>
-              %img{alt: "", src: "/assets/statistics.png"}/
+              = image_tag("statistics.png")
             Tablero
 
         %li{class: ('active' if @selected_menu == 'Users')}
           = link_to admin_users_path do
             %i>
-              %img{alt: "", src: "/assets/user.png"}/
+              = image_tag("user.png")
             Usuarios
 
         %li{class: ('active' if @selected_menu == 'Volunteers')}
           = link_to admin_volunteers_path do
             %i>
-              %img{alt: "", src: "/assets/likes.png"}/
+              = image_tag("likes.png")
             Voluntarios
             %span.messages
               = @volunteersCount
@@ -30,28 +30,28 @@
         %li{class: ('active' if @selected_menu == 'Events')}
           = link_to admin_events_path do
             %i>
-              %img{alt: "", src: "/assets/events.png"}/
+              = image_tag("events.png")
             Eventos
             %span.messages
               = @eventsCount
         %li{class: ('active' if @selected_menu == 'Brigades')}
           = link_to admin_brigades_path do
             %i>
-              %img{alt: "", src: "/assets/follow_user.png"}/
+              = image_tag("follow_user.png")
             Brigadas
             %span.messages
               = @brigadesCount
         %li{class: ('active' if @selected_menu == 'Children')}
           = link_to admin_children_path do
             %i>
-              %img{alt: "", src: "/assets/follow_user.png"}/
+              = image_tag("follow_user.png")
             Niños
             %span.messages
               = @childrenCount
         %li{class: ('active' if @selected_menu == 'Polls')}
           = link_to admin_polls_path do
             %i>
-              %img{alt: "", src: "/assets/follow_user.png"}/
+              = image_tag("follow_user.png")
             Encuestas
             %span.messages
               = @pollsCount
@@ -91,6 +91,6 @@
                     .clear
         .profile_img
           %a{href: "#"}
-            %img{alt: "", src: "/assets/profile_img40x40.jpg"}/
+            = image_tag("profile_img40x40.jpg")
         .clear
     .clear

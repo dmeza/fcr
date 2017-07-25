@@ -2,7 +2,7 @@
   .header_top
     .menu
       %a.toggleMenu{href: "#"}
-        %img{alt: "", src: "/assets/nav.png"}/
+        = image_tag("nav.png")
       %ul.nav
         %li
           = link_to root_path do
@@ -11,14 +11,14 @@
           %li{class: ('active' if @selected_menu == 'Dash')}
             = link_to brigades_dash_path do
               %i>
-                %img{alt: "", src: "/assets/statistics.png"}/
+                = image_tag("statistics.png")
               Eventos
 
         - if current_user.is_brigade_leader?
           %li{class: ('active' if @selected_menu == 'Dash')}
             = link_to brigades_index_path do
               %i>
-                %img{alt: "", src: "/assets/statistics.png"}/
+                = image_tag("statistics.png")
               Brigadas
             
         .clear
@@ -45,6 +45,6 @@
                   .clear
       .profile_img
         %a{href: "#"}
-          %img{alt: "", src: "/assets/profile_img40x40.jpg"}/
+          = image_tag("profile_img40x40.jpg")
       .clear
     .clear
