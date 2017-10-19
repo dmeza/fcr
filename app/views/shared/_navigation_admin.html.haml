@@ -48,6 +48,10 @@
             Niños
             %span.messages
               = @childrenCount
+        
+
+        .clear
+
         %li{class: ('active' if @selected_menu == 'Polls')}
           = link_to admin_polls_path do
             %i>
@@ -56,7 +60,13 @@
             %span.messages
               = @pollsCount
 
-        .clear
+        %li{class: ('active' if @selected_menu == 'Hospitals')}
+          = link_to admin_hospitals_path do
+            %i>
+              %img{alt: "", src: "/assets/follow_user.png"}/
+            Hospitales
+            %span.messages
+              = @hospitalsCount
 
     .profile_details
       .dropdown

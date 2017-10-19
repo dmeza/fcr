@@ -1,13 +1,16 @@
 .container.admin
   = render 'shared/navigation_admin'
   .row
-    .col-lg-12
+    .col-lg-10
       .chart
         %h3.module_header
           Niños
           %span.count
             #{@children.count}
           = link_to 'Exportar a Excel', to_xlsx_admin_children_path(format: :xlsx), style: "margin-right:10px;", class: 'btn btn-xs btn-primary pull-right'
+    .col-lg-2
+      %a.my_button{href: new_admin_child_path, style: 'margin-top: 30px;'}
+        Nuevo Niño
     .col-lg-12
       .well
         .row

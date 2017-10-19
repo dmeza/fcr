@@ -1,0 +1,113 @@
+.container.admin
+  = render 'shared/navigation_admin'
+  .row.adform
+    = form_for @child, url: (@child.new_record? ? admin_children_path : admin_child_path(@child.id)), method: (@child.new_record? ? 'post' : 'put'), html: {id: 'eventForm'} do |f|
+
+      .chart
+        %h3.module_header
+          #{(@child.new_record? ? 'Nuevo Niño' : "Editar Niño")}
+        .col-lg-12
+          .temp_list
+            %ul
+              - unless @child.errors.empty?
+                %li
+                  .alert.alert-danger.errors
+                    = @child.errors.full_messages.join(', ')
+
+              %li
+              .row
+                .col-lg-3
+                  %span Hospital *
+                .col-lg-7
+                  = f.select :hospital_id, options_from_collection_for_select(Hospital.all, :id, :name, @child.hospital_id), {}, {class: "form-control"}
+
+              %li
+              .row
+                .col-lg-3
+                  %span Diagnostico *
+                .col-lg-7
+                  = f.select :diagnostic_id, options_from_collection_for_select(Diagnostic.all, :id, :name, @child.diagnostic_id), {}, {class: "form-control"}
+              
+              %li
+              .row
+                .col-lg-3
+                  %span Estado *
+                .col-lg-7
+                  = f.select :child_status_id, options_from_collection_for_select(ChildStatus.all, :id, :name, @child.child_status_id), {}, {class: "form-control"}
+
+              %li
+              .row
+                .col-lg-3
+                  %span Ciudad *
+                .col-lg-7
+                  = f.select :city_id, options_from_collection_for_select(City.all, :id, :name, @child.city_id), {}, {class: "form-control"}
+ 
+              %li
+              .row
+                .col-lg-3
+                  %span Nombre *
+                .col-lg-7
+                  = f.text_field :name, size: '250', maxlenght: '250', class: "form-control"
+
+              %li
+              .row
+                .col-lg-3
+                  %span Genero *
+                .col-lg-7
+                  = f.text_field :genere, size: '250', maxlenght: '50', class: "form-control"
+
+              %li
+              .row
+                .col-lg-3
+                  %span Cumpleaños *
+                .col-lg-7{ :style => "text-align: left;" }
+                  = f.text_field :birth_date, size: '5', maxlenght: '5', value: (@child.birth_date.nil? ? '' : @child.birth_date.strftime("%d/%m/%Y")), class: 'datepicker date', style: 'padding: 15px;'
+
+              %li
+              .row
+                .col-lg-3
+                  %span Sueño *
+                .col-lg-7
+                  = f.text_field :dream, size: '250', maxlenght: '250', class: "form-control"
+
+              %li
+              .row
+                .col-lg-3
+                  %span Direccion *
+                .col-lg-7
+                  = f.text_field :address, size: '250', maxlenght: '250', class: "form-control"
+
+              %li
+                %i{style: 'font-size: 12px;'} Los campos marcados con * son obligatorios
+                %hr/
+                .botones
+                  = link_to "Guardar", "#", onclick: "$('#eventForm').submit(); return false;", class: 'btn btn-primary btn-inverse'
+                  = link_to "Cancelar", admin_children_path, class: 'btn btn-default'
+                  - unless @child.new_record?
+                    = link_to "Borrar", admin_child_path(@child.id), class: 'btn btn-default', confirm: "Esta seguro que desea borrar el evento:#{@child.name}?", method: 'delete'
+
+- content_for :js_footer do
+  :javascript
+    $.ajax({async:false});
+    $(function() {
+   
+      $(".datepicker").datepicker({
+        dateFormat: "yy-mm-dd",
+        changeMonth: true,
+        changeYear: true,
+        minDate: "-12M",
+        maxDate: "+6M"
+      });
+    })
+
+
+
+
+  /   t.integer  "siblings_over_18",  limit: 4
+  /   t.integer  "siblings_under_18", limit: 4
+
+  / end
+
+
+
+
