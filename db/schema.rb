@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 20160227164903) do
   create_table "areas", force: :cascade do |t|
     t.string   "name",       limit: 200,                  null: false
     t.string   "color",      limit: 20,  default: "blue", null: false
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "authentications", force: :cascade do |t|
@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20160227164903) do
   create_table "brigades", force: :cascade do |t|
     t.integer  "program_id",        limit: 4,   null: false
     t.string   "name",              limit: 200, null: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "brigade_leader_id", limit: 4,   null: false
   end
 
@@ -62,8 +62,8 @@ ActiveRecord::Schema.define(version: 20160227164903) do
 
   create_table "cities", force: :cascade do |t|
     t.string   "name",       limit: 200, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "diagnostics", force: :cascade do |t|
@@ -87,16 +87,16 @@ ActiveRecord::Schema.define(version: 20160227164903) do
     t.string   "image_content_type", limit: 255
     t.integer  "image_file_size",    limit: 4
     t.datetime "image_updated_at"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "event_types", force: :cascade do |t|
     t.string   "name",               limit: 200,                 null: false
     t.boolean  "requires_inception",             default: true
     t.boolean  "is_inception",                   default: false
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "has_limit",                      default: false, null: false
   end
 
@@ -108,8 +108,8 @@ ActiveRecord::Schema.define(version: 20160227164903) do
     t.datetime "event_date",                                     null: false
     t.string   "place",           limit: 255,                    null: false
     t.string   "state",           limit: 255, default: "Activo", null: false
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "event_type_id",   limit: 4,                      null: false
     t.integer  "responsable_id",  limit: 4
     t.integer  "city_id",         limit: 4
@@ -147,8 +147,8 @@ ActiveRecord::Schema.define(version: 20160227164903) do
   create_table "programs", force: :cascade do |t|
     t.string   "name",        limit: 200, null: false
     t.text     "description", limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "relative_types", force: :cascade do |t|
@@ -193,8 +193,8 @@ ActiveRecord::Schema.define(version: 20160227164903) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",        limit: 255
     t.string   "last_sign_in_ip",           limit: 255
-    t.datetime "created_at",                                              null: false
-    t.datetime "updated_at",                                              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "has_induction",                           default: false
     t.date     "birth_date"
     t.string   "indentifier",               limit: 20

@@ -15,5 +15,5 @@ development:
   database: voluntarios_development
   pool: 5
   username: root
-  password:
+  password: developer
   socket: /var/run/mysqld/mysqld.sock

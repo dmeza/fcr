@@ -3,6 +3,8 @@ class Admin::PollsController < Admin::AdminController
 
   before_filter :set_menu
 
+
+
   def index
     @polls = Poll.paginate(page: params[:page], per_page: 50).order('created_at desc')
   end
@@ -26,6 +28,26 @@ class Admin::PollsController < Admin::AdminController
     @polls = Poll.all
     headers['Content-Disposition'] = "attachment; filename=Polls_#{Date.today.strftime('%Y/%m/%d')}.xlsx"
   end
+
+
+  def from_xlsx
+
+    uploaded_doc = Poll.save_file( params[:upload][:datafile].tempfile.to_path.to_s ) 
+    
+    @errors = uploaded_doc
+
+    if @errors.empty?
+      flash[:notice] = "Tus Archivos fueron guardados correctemente"
+    else
+      flash[:notice] = "Tus Archivos fueron guardados, pero contienen errores. #{@errors}"
+    end
+
+    redirect_to admin_polls_path
+
+
+
+  end
+
 
   private
   
