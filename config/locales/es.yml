@@ -221,7 +221,12 @@ es:
       city:
         one: ciudad
         other: ciudades
+      hospital:
+        one: hospital
+        other: hospitales
     attributes:
+      hospital: 
+        name: 'nombre'
       user:
         tos: 'Términos y condiciones'
         birth_date: 'fecha de nacimiento'

@@ -68,5 +68,5 @@ gem 'bootstrap-will_paginate'
 gem 'roo'
 gem 'axlsx', '~> 2.0', git: "https://github.com/randym/axlsx.git"
 gem 'axlsx_rails', '~> 0.2.0'
-
 gem 'paperclip', ">= 4.1.1"
+

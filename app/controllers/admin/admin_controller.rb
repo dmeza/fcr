@@ -3,7 +3,7 @@ class Admin::AdminController < ApplicationController
   before_filter :authenticate_user!
   before_filter :require_admin
 
-  before_filter :page_id, :events_count, :volunteers_count, :brigades_count, :children_count, :polls_count
+  before_filter :page_id, :events_count, :volunteers_count, :brigades_count, :children_count, :polls_count, :hospital_count
 
   layout 'admin'
 
@@ -36,7 +36,12 @@ class Admin::AdminController < ApplicationController
     @childrenCount = Child.count('name', :distinct => true)
   end
 
+  def hospital_count
+    @hospitalsCount = Hospital.count('name', :distinct => true)
+  end
+
   def polls_count
     @pollsCount = Poll.count('code', :distinct => true)
   end
+
 end

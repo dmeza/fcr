@@ -18,7 +18,7 @@
                   edit_new_admin_event_path(event.id)
               - else
                 = link_to "#{event.name} (#{event.event_type.name}: #{event.area.name})", edit_admin_event_path(event.id)
-            %td #{event.city.name}, #{event.place}
+            / %td #{event.city.name}, #{event.place}
             %td= (event.event_type.has_limit ? "#{event.used} (#{event.spaces})" : "#{event.used} (ilimitado)")
             %td
               Activación: #{(event.activation_date || event.created_at).strftime("%d/%m/%Y")}
