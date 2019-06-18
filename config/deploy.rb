@@ -1,7 +1,7 @@
 # config valid only for current version of Capistrano
 lock '3.2.1'
 
-set :application, 'ayudandonos'
+set :application, 'imparables'
 set :repo_url, 'git@github.com:dmeza/fcr.git'
 
 # Default branch is :master
