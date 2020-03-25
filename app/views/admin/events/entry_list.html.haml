@@ -18,7 +18,7 @@
           %tr
             %th Nombre
             %th Correo
-            %th Cédula
+            %th Celular
             %th Fecha de Nacimiento
             %th Brigadista
             %th Remover?
@@ -28,7 +28,7 @@
             %tr{id: "volunteer_#{user.id}"}
               %td= user.full_name
               %td= user.email
-              %td= user.indentifier
+              %td= user.mobile
               %td= user.birth_date.strftime("%Y-%m-%d") unless user.birth_date.nil?
               %td #{events_user.is_brigadist ? 'Sí' : 'No'}
               %td= link_to 'Remover?', remove_participant_admin_event_path(@event.id, uid: user.id), remote: true, method: :delete, data: { confirm: "Esta seguro que desea eliminar al usuario: '#{user.full_name}'' del evento: '#{@event.name}'"}

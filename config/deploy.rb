@@ -3,7 +3,7 @@ require 'rvm/capistrano'
 
 default_run_options[:pty] = true
 set :application, "ayudandonos"
-set :repository,  "git@github.com:dmeza/voluntarios.git"
+set :repository,  "git@github.com:dmeza/fcr.git"
 
 set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
                # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`

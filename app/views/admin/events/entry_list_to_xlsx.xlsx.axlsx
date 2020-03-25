@@ -7,11 +7,11 @@ wb.add_worksheet(name: "Propuesta #{params[:type]}", page_setup: { fit_to_width:
   #header
   sheet.add_row [], height: 13 #empty
   sheet.add_row ["#{@event.name}", "#{@event.event_date.strftime('%Y/%m/%d')}"], style: st_header
-  sheet.add_row ['Nombre', 'Email', 'Cédula', 'Fecha Nacimiento', 'Brigadista'], style: st_header
+  sheet.add_row ['Nombre', 'Email', 'Cédula', 'Fecha Nacimiento', 'Celular', 'Brigadista'], style: st_header
 
   @events_users.each do |events_user|
     user = events_user.user
-    sheet.add_row ["#{user.full_name}", "#{user.email}", "#{user.indentifier}", "#{user.birth_date.strftime("%Y-%m-%d") unless user.birth_date.nil?}", "#{events_user.is_brigadist ? 'Sí' : 'No'}"], style: st_detail
+    sheet.add_row ["#{user.full_name}", "#{user.email}", "#{user.indentifier}", "#{user.birth_date.strftime("%Y-%m-%d") unless user.birth_date.nil?}", "#{user.mobile}", "#{events_user.is_brigadist ? 'Sí' : 'No'}"], style: st_detail
   end
 
 end

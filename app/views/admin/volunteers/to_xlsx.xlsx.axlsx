@@ -6,10 +6,10 @@ wb.add_worksheet(name: "Propuesta #{params[:type]}", page_setup: { fit_to_width:
   sheet.page_setup.set(paper_width: "210mm", paper_height: "297mm")
   #header
   sheet.add_row [], height: 13 #empty
-  sheet.add_row ['Nombre', 'Email', 'Cédula', 'Fecha Nacimiento', 'Fecha registro', 'Brigada', 'Ciudad', 'Recibir más información?', 'Inducción en su empresa?'], style: st_header
+  sheet.add_row ['Nombre', 'Email', 'Cédula', 'Fecha Nacimiento', 'Fecha registro', 'Brigada', 'Ciudad', 'Celular', 'Recibir más información?', 'Inducción en su empresa?'], style: st_header
 
   @users.each do |user|
-    sheet.add_row ["#{user.full_name}", "#{user.email}", "#{user.indentifier}", "#{user.birth_date.strftime("%Y-%m-%d") unless user.birth_date.nil?}", "#{user.created_at.strftime("%Y-%m-%d %H:%M")}", "#{user.brigade.name if user.brigade_id}", "#{user.city.name if user.city_id}", "#{user.contact_me ? 'Sí' : 'No'}", "#{user.has_institution_induction ? 'Sí' : 'No'}"], style: st_detail
+    sheet.add_row ["#{user.full_name}", "#{user.email}", "#{user.indentifier}", "#{user.birth_date.strftime("%Y-%m-%d") unless user.birth_date.nil?}", "#{user.created_at.strftime("%Y-%m-%d %H:%M")}", "#{user.brigade.name if user.brigade_id}", "#{user.city.name if user.city_id}", "#{user.mobile}", "#{user.contact_me ? 'Sí' : 'No'}", "#{user.has_institution_induction ? 'Sí' : 'No'}"], style: st_detail
       
   end
 

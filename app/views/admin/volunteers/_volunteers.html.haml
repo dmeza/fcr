@@ -5,7 +5,7 @@
         %tr
           %th Nombre
           %th Email
-          %th Cédula
+          %th Celular
           %th Ciudad
           %th Nacimiento
           %th Registro
@@ -20,7 +20,7 @@
           %tr
             %td= link_to volunteer.full_name, edit_admin_volunteer_path(volunteer.id)
             %td= volunteer.email
-            %td= volunteer.indentifier
+            %td= volunteer.mobile
             %td= volunteer.city.name
             %td= volunteer.birth_date.strftime("%Y-%m-%d") unless volunteer.birth_date.nil?
             %td= volunteer.created_at.strftime("%Y-%m-%d %H:%M")
